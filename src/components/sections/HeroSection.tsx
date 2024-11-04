@@ -68,21 +68,19 @@ export const HeroSection = ({
           type: "spring",
           damping: 15,
           stiffness: 70,
-          restDelta: 0.001
-        },
-        opacity: {
-          duration: 0.8
-        },
-        filter: {
-          duration: 0.8
         }
       }
     },
     hover: {
       filter: "blur(3px)",
+      scale: 1.05, // Add slight scale for better feedback
       transition: {
         duration: 0.2,
-        ease: "easeOut"
+        ease: "easeOut",
+        filter: {
+          type: "tween",
+          ease: "easeOut"
+        }
       }
     }
   };
@@ -118,41 +116,34 @@ export const HeroSection = ({
           />
         </div>
         
-        <div className="relative">
-          {/* Updated gradient border container */}
+        <div className="relative isolate">
+          {/* Gradient border - pushed to back */}
           <div 
-            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur-[1px] opacity-75 transition duration-1000 animate-tilt"
-            style={{
-              transform: 'translate3d(0, 0, 0)',  // Force GPU acceleration
-              willChange: 'transform',            // Optimize animations
-              contain: 'paint'                    // Contain paint operations
-            }}
+            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur-[1px] opacity-75 transition duration-1000 animate-tilt -z-10"
           />
+          
+          {/* Image container - guaranteed to be on top */}
           <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full"
+            className="relative w-28 h-28 rounded-full z-20"
             variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsBlurred(!isBlurred);
-            }}
+            whileTap="hover" // Add touch support
             style={{
+              touchAction: 'none',  // Prevent default touch behaviors
               cursor: 'pointer',
-              willChange: 'filter',
-              contain: 'paint layout',  // Better containment
-              transform: 'translate3d(0, 0, 0)'  // Force GPU acceleration
             }}
           >
-            <img 
+            <motion.img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-full"
+              draggable="false"
               style={{
-                transform: 'translateZ(0)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden'
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none',
               }}
             />
           </motion.div>
