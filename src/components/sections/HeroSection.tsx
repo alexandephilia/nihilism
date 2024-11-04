@@ -68,21 +68,10 @@ export const HeroSection = ({
           type: "spring",
           damping: 15,
           stiffness: 70,
+          restDelta: 0.001
         }
       }
     },
-    hover: {
-      filter: "blur(3px)",
-      scale: 1.05, // Add slight scale for better feedback
-      transition: {
-        duration: 0.2,
-        ease: "easeOut",
-        filter: {
-          type: "tween",
-          ease: "easeOut"
-        }
-      }
-    }
   };
 
   useEffect(() => {
@@ -116,34 +105,31 @@ export const HeroSection = ({
           />
         </div>
         
-        <div className="relative isolate">
-          {/* Gradient border - pushed to back */}
-          <div 
-            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur-[1px] opacity-75 transition duration-1000 animate-tilt -z-10"
-          />
-          
-          {/* Image container - guaranteed to be on top */}
-          <motion.div
-            className="relative w-28 h-28 rounded-full z-20"
+        <div className="relative">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
+        <motion.div
+            className="relative w-28 h-28 overflow-hidden rounded-full group transition-all duration-300"
             variants={imageVariants}
             initial="initial"
             animate="animate"
-            whileHover="hover"
-            whileTap="hover" // Add touch support
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBlurred(!isBlurred);
+            }}
             style={{
-              touchAction: 'none',  // Prevent default touch behaviors
               cursor: 'pointer',
+              willChange: 'transform',
+              isolation: 'isolate'
             }}
           >
-            <motion.img 
+            <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover rounded-full"
-              draggable="false"
+              className="w-full h-full object-cover transition-all duration-300 group-hover:blur-[2px]"
               style={{
-                WebkitTouchCallout: 'none',
-                WebkitUserSelect: 'none',
-                userSelect: 'none',
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
               }}
             />
           </motion.div>
