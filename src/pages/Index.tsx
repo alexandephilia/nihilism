@@ -332,7 +332,7 @@ const Index = () => {
                   <strong>nihilist</strong>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-2">
-                  <span>who likes to contemplate about</span>
+                  <span>who contemplate about</span>
                   <AnimatedTyping 
                     words={["coffee.", "existence.", "space.", "futurism."]} 
                     className="font-bold"
