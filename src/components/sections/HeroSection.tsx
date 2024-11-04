@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useCallback } from 'react'; // Add this import
 
 interface SocialLink {
   href: string;
@@ -92,6 +93,11 @@ export const HeroSection = ({
     }
   };
 
+  const preventTouchActions = useCallback((e: React.TouchEvent | React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -113,25 +119,28 @@ export const HeroSection = ({
         <div className="relative">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
         <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
+            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer touch-none"
             variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
             whileTap="tap"
+            onTouchStart={preventTouchActions}
             style={{
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               willChange: 'transform',
               contain: 'paint layout',
-              cursor: 'pointer'
+              cursor: 'pointer',
+              WebkitTapHighlightColor: 'transparent', // Prevent tap highlight
+              touchAction: 'none' // Disable browser touch actions
             }}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover transition-all duration-200 prevent-drag"
+              className="w-full h-full object-cover transition-all duration-200 prevent-drag select-none touch-none"
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
@@ -140,10 +149,13 @@ export const HeroSection = ({
                 WebkitTouchCallout: 'none',
                 WebkitUserSelect: 'none',
                 userSelect: 'none',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                touchAction: 'none'
               }}
               draggable="false"
-              onContextMenu={(e) => e.preventDefault()}
+              onContextMenu={preventTouchActions}
+              onTouchStart={preventTouchActions}
+              onTouchMove={preventTouchActions}
             />
           </motion.div>
         </div>

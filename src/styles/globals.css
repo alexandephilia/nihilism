@@ -16,6 +16,10 @@
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+  user-drag: none;
+}
+
+.touch-none {
+  touch-action: none;
   -webkit-touch-callout: none;
-  pointer-events: none;
 } 
