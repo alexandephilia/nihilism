@@ -9,7 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState } from "react"; // Add this import
 
 interface SocialLink {
   href: string;
@@ -48,8 +47,6 @@ export const HeroSection = ({
     }
   ]
 }: HeroSectionProps) => {
-  const [isBlurred, setIsBlurred] = useState(false);
-
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -68,89 +65,69 @@ export const HeroSection = ({
           />
         </div>
         
-        <div className="relative group">
+        <div className="relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
           <motion.div
-            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"
-            animate={{ 
-              filter: isBlurred ? "blur(4px)" : "blur(1px)",
-              opacity: isBlurred ? 1 : 0.75
-            }}
-            transition={{ 
-              duration: 0.3,
-              ease: "easeInOut"
-            }}
-          />
-          <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full"
+            className="relative w-28 h-28 overflow-hidden"
             initial={{ 
               opacity: 0, 
-              scale: 0.5,
+              scale: 0.5, 
+              borderRadius: "50%", 
               filter: "blur(16px)" 
             }}
             animate={{ 
               opacity: 1, 
-              scale: 1,
-              filter: isBlurred ? "blur(2px)" : "blur(0px)" 
+              scale: 1, 
+              borderRadius: "50%", 
+              filter: "blur(0px)" 
             }}
             transition={{ 
               duration: 1.2,
               ease: [0.6, -0.05, 0.01, 0.99],
+              type: "spring",
+              stiffness: 200,
+              damping: 20,
               filter: {
-                duration: 0.3,
-                ease: "easeInOut"
+                duration: 0.8,
+                ease: "easeOut"
               }
             }}
             whileHover={{ 
               filter: "blur(2px)",
               transition: {
-                duration: 0.3,
-                ease: "easeInOut"
+                type: "spring",
+                stiffness: 300,
+                damping: 15
               }
-            }}
-            onPointerDown={(e) => {
-              e.preventDefault();
-              setIsBlurred(true);
-            }}
-            onPointerUp={(e) => {
-              e.preventDefault();
-              setIsBlurred(false);
-            }}
-            onPointerLeave={() => setIsBlurred(false)}
-            style={{
-              touchAction: "none",  // Prevent default touch behaviors
-              WebkitTapHighlightColor: "transparent" // Remove tap highlight on mobile
             }}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover rounded-full select-none"
-              draggable="false"
+              className="w-full h-full object-cover"
             />
           </motion.div>
         </div>
         
-        <div className="flex flex-col items-center text-center">
-          <div className="space-y-4">
-            <h1 className="text-[2rem] md:text-[3.3rem] font-bold group hover:blur-[2px] transition-all duration-300 -mb-3">
-              {typeof name === 'string' ? name.split("").map((letter, index) => (
-                <span 
-                  key={index}
-                  className="font-bold font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
-                  style={{ 
-                    animationDelay: `${index * 0.05}s`,
-                    animationFillMode: "forwards"
-                  }}
-                >
-                  {letter === " " ? "\u00A0" : letter}
-                </span>
-              )) : name}
-            </h1>
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
-              {title}<br />
-              {subtitle}
-            </p>
-          </div>
+        <div className="space-y-4">
+        <h1 className="text-[2rem] md:text-[3.3rem] font-bold group hover:blur-[2px] transition-all duration-300 -mb-3">
+            {typeof name === 'string' ? name.split("").map((letter, index) => (
+              <span 
+                key={index}
+                className="font-bold font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                style={{ 
+                  animationDelay: `${index * 0.05}s`,
+                  animationFillMode: "forwards"
+                }}
+              >
+                {letter === " " ? "\u00A0" : letter}
+              </span>
+            )) : name}
+          </h1>
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
+            {title}<br />
+            {subtitle}
+          </p>
         </div>
 
         <div className="flex gap-5 animate-fade-in-up opacity-0 [animation-delay:600ms] [animation-fill-mode:forwards]">
