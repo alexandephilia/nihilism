@@ -80,7 +80,7 @@ export const ProjectsSection = () => {
       content: "A collection of projects using the Open AI API.",
       buttonText: "View Projects",
       buttonLink: "https://github.com/garryalexander/openai-api",
-      backgroundImage: "https://mir-s3-cdn-cf.behance.net/projects/404/cff57d173218977.Y3JvcCwxODA3LDE0MTQsMCww.png"
+      backgroundImage: "https://cdn.shopify.com/s/files/1/0403/5801/9230/t/11/assets/logo-animation-openai-08-Bqv_1250x.jpg?v=1681851367"
     },
     {
       title: "Shadcn UI",

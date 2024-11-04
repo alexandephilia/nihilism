@@ -84,7 +84,7 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const Grain = ({ opacity = 0.6 }) => {
+const Grain = ({ opacity = 0.8 }) => {
   const controls = useAnimationControls();
   const { theme } = useTheme();
   
@@ -114,12 +114,12 @@ const Grain = ({ opacity = 0.6 }) => {
       <motion.div
         animate={controls}
         style={{
-          backgroundSize: "100px 100px",
+          backgroundSize: "64px 64px",
           backgroundRepeat: "repeat",
           background: theme === 'dark' 
             ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
             : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
-          opacity: theme === 'dark' ? opacity : opacity * 0.5,
+          opacity: theme === 'dark' ? opacity : opacity * 0.8,
           inset: "-200%",
           width: "400%",
           height: "400%",

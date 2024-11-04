@@ -153,8 +153,8 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
               filter: `blur(${contentVisible ? 0 : 4}px)`
             }}
           >
-            <h3 className="text-lg font-semibold text-black dark:text-foreground">{project.title}</h3>
-            <p className="text-sm text-black/80 dark:text-foreground/90">{project.description}</p>
+            <h3 className="text-white dark:text-foreground font-semibold text-lg">{project.title}</h3>
+            <p className="text-white/90 dark:text-foreground/90 text-sm">{project.description}</p>
           </div>
           
           <div 
@@ -165,7 +165,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
               filter: `blur(${contentVisible ? 0 : 4}px)`
             }}
           >
-            <p className="text-sm text-black dark:text-foreground/80 line-clamp-3">
+            <p className="text-white/80 dark:text-foreground/80 text-sm line-clamp-3">
               {project.content}
             </p>
             <Button 
