@@ -20,9 +20,6 @@ export default {
     extend: {
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],
-        inter: ['Inter', 'sans-serif'],
-        roc: ['Roc_Grotesk_Regular', 'sans-serif'],
-        times: ['Times New Normal', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

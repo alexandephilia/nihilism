@@ -39,11 +39,4 @@ declare module 'framer-motion' {
     ): any
 
     export const useAnimationControls: typeof import('framer-motion').useAnimation
-
-    export const AnimatePresence: React.FC<{
-        initial?: boolean
-        mode?: "sync" | "wait" | "popLayout"
-        onExitComplete?: () => void
-        children: React.ReactNode
-    }>
 } 

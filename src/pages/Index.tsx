@@ -84,7 +84,7 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const Grain = ({ opacity = 0.8 }) => {
+const Grain = ({ opacity = 0.6 }) => {
   const controls = useAnimationControls();
   const { theme } = useTheme();
   
@@ -114,12 +114,12 @@ const Grain = ({ opacity = 0.8 }) => {
       <motion.div
         animate={controls}
         style={{
-          backgroundSize: "64px 64px",
+          backgroundSize: "100px 100px",
           backgroundRepeat: "repeat",
           background: theme === 'dark' 
             ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
             : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
-          opacity: theme === 'dark' ? opacity : opacity * 0.8,
+          opacity: theme === 'dark' ? opacity : opacity * 0.5,
           inset: "-200%",
           width: "400%",
           height: "400%",
@@ -138,7 +138,7 @@ const Index = () => {
       {/* Navigation */}
       
       <nav className="fixed w-full top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container max-w-5xl flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-between">
           {/* Left side - Logo and Desktop Navigation */}
           <div className="flex items-center gap-6">
             <span className="text-xl font-bold">Portfolio</span>
@@ -219,7 +219,7 @@ const Index = () => {
                           <span className="font-bold">View my professional journey and achievements</span>
                         </ListItem>
                         <ListItem href="/contact" title="Contact">
-                          <span className="font-bold">Get in touch for collaboration</span>
+                          <span className="font-bold">Get in touch for opportunities and collaboration</span>
                         </ListItem>
                       </ul>
                     </NavigationMenuContent>
@@ -273,45 +273,33 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="container max-w-5xl">
-        <HeroSection 
-          name="Garry Alexander"
-          title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
-          subtitle="who loves to code and coffee ☕"
-          profileImage="/Untitled.jpeg"
-        />
-      </div>
+      <HeroSection 
+        name="Garry Alexander"
+        title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
+        subtitle="who loves to code and coffee ☕"
+        profileImage="/Untitled.jpeg"
+      />
 
       {/* Projects Section */}
-      <div className="container max-w-5xl">
-        <ProjectsSection />
-      </div>
+      <ProjectsSection />
 
       {/* Skills Section */}
-      <div className="container max-w-5xl">
-        <SkillsSection />
-      </div>
+      <SkillsSection />
 
       {/* Blog Section */}
-      <div className="container max-w-5xl">
-        <BlogSection />
-      </div>
+      <BlogSection />
 
     
       {/* Experience Section */}
-      <div className="container max-w-5xl">
-        <ExperienceSection />
-      </div>
+      <ExperienceSection />
 
 
       {/* Contact Section */}
-      <div className="container max-w-5xl">
-        <ContactSection />
-      </div>
+      <ContactSection />
 
       {/* Footer Section */}
       <footer className="border-t mt-16">
-      <div className="container max-w-5xl py-8">
+      <div className="container py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <Coffee className="h-4 w-4" />

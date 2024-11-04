@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
-import { motion } from "framer-motion"; // Add this import at the top
 import { Linkedin, Mail, User } from "lucide-react";
 import {
   Tooltip,
@@ -65,58 +64,20 @@ export const HeroSection = ({
           />
         </div>
         
-        <div className="relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-          <motion.div
-            className="relative w-28 h-28 overflow-hidden"
-            initial={{ 
-              opacity: 0, 
-              scale: 0.5, 
-              borderRadius: "50%", 
-              filter: "blur(16px)" 
-            }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              borderRadius: "50%", 
-              filter: "blur(0px)" 
-            }}
-            transition={{ 
-              duration: 1.2,
-              ease: [0.6, -0.05, 0.01, 0.99],
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
-              filter: {
-                duration: 0.8,
-                ease: "easeOut"
-              }
-            }}
-            whileHover={{ 
-              // scale: 1.1,
-              // borderRadius: "25%",
-              filter: "blur(2px)",
-              transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 15
-              }
-            }}
-          >
-            <img 
-              src={profileImage}
-              alt="Profile memoji"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
+        <div className="rounded-full bg-muted/50 p-2.5 hover:blur-sm hover:scale-105 transition-all duration-300 group">
+          <img 
+            src={profileImage}
+            alt="Profile memoji"
+            className="h-28 w-28 rounded-full opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] profile-image"
+          />
         </div>
         
         <div className="space-y-4">
-        <h1 className="text-[2rem] md:text-[3.3rem] font-bold group hover:blur-[2px] transition-all duration-300 -mb-3">
-            {typeof name === 'string' ? name.split("").map((letter, index) => (
+          <h1 className="text-[2rem] md:text-[2.8rem] font-bold group hover:blur-[2px] transition-all duration-300">
+            {name.split("").map((letter, index) => (
               <span 
                 key={index}
-                className="font-bold font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
                 style={{ 
                   animationDelay: `${index * 0.05}s`,
                   animationFillMode: "forwards"
@@ -124,7 +85,7 @@ export const HeroSection = ({
               >
                 {letter === " " ? "\u00A0" : letter}
               </span>
-            )) : name}
+            ))}
           </h1>
           <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
             {title}<br />
@@ -154,12 +115,13 @@ export const HeroSection = ({
           ))}
         </div>
       </div>
-     {/* Scroll indicator - now positioned below buttons */}
-     <div className="mt-16 animate-bounce opacity-50 pointer-events-none">
-          <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
-          </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-12 left-[49%] -translate-x-1/2 animate-bounce opacity-50 hidden md:block">
+        <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
+          <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
         </div>
+      </div>
     </section>
   );
 }; 

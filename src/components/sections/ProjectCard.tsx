@@ -95,34 +95,20 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
       ref={cardRef}
       style={{ 
         filter: blurValue,
-        position: 'relative'
       }}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
-      <div 
-        className="absolute inset-0 transition-all duration-500 opacity-0 group-hover:opacity-100"
-        style={{
-          boxShadow: '0 0 80px 80px rgba(255, 255, 255, 0.05)',
-          transform: 'translate(-50%, -50%)',
-          left: '50%',
-          top: '50%',
-          pointerEvents: 'none'
-        }}
-      />
-
       <Card 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.1] border border-black/20 ring-1 ring-black/5 dark:border-white/10 hover:border-black/30 hover:ring-black/10 hover:shadow-[0_0_15px_rgb(39,39,42)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1"
+        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.02]"
         style={{
           minHeight: project.minHeight || '300px',
           display: 'flex',
-          flexDirection: 'column',
-          transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-          transition: 'transform 0.3s ease-out'
+          flexDirection: 'column'
         }}
       >
         {/* Background Image */}
@@ -153,8 +139,8 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
               filter: `blur(${contentVisible ? 0 : 4}px)`
             }}
           >
-            <h3 className="text-white dark:text-foreground font-semibold text-lg">{project.title}</h3>
-            <p className="text-white/90 dark:text-foreground/90 text-sm">{project.description}</p>
+            <h3 className="text-lg font-semibold text-black dark:text-foreground">{project.title}</h3>
+            <p className="text-sm text-black/80 dark:text-foreground/90">{project.description}</p>
           </div>
           
           <div 
@@ -165,7 +151,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
               filter: `blur(${contentVisible ? 0 : 4}px)`
             }}
           >
-            <p className="text-white/80 dark:text-foreground/80 text-sm line-clamp-3">
+            <p className="text-sm text-black dark:text-foreground/80 line-clamp-3">
               {project.content}
             </p>
             <Button 
