@@ -71,46 +71,47 @@ export const HeroSection = ({
         <div className="relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
           <motion.div
-            className="relative w-28 h-28 overflow-hidden"
+            className="relative w-28 h-28 overflow-hidden rounded-full"
             initial={{ 
               opacity: 0, 
-              scale: 0.5, 
-              borderRadius: "50%", 
+              scale: 0.5,
               filter: "blur(16px)" 
             }}
             animate={{ 
               opacity: 1, 
-              scale: 1, 
-              borderRadius: "50%", 
+              scale: 1,
               filter: isBlurred ? "blur(2px)" : "blur(0px)" 
             }}
             transition={{ 
               duration: 1.2,
               ease: [0.6, -0.05, 0.01, 0.99],
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
               filter: {
-                duration: 0.8,
-                ease: "easeOut"
+                duration: 0.3,
+                ease: "easeInOut"
               }
             }}
             whileHover={{ 
               filter: "blur(2px)",
               transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 15
+                duration: 0.3,
+                ease: "easeInOut"
               }
             }}
-            onTouchStart={() => setIsBlurred(true)}
-            onTouchEnd={() => setIsBlurred(false)}
-            onClick={() => setIsBlurred(!isBlurred)}
+            onPointerDown={(e) => {
+              e.preventDefault();
+              setIsBlurred(true);
+            }}
+            onPointerUp={(e) => {
+              e.preventDefault();
+              setIsBlurred(false);
+            }}
+            onPointerLeave={() => setIsBlurred(false)}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-full"
+              draggable="false"
             />
           </motion.div>
         </div>
