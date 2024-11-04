@@ -93,8 +93,8 @@ export const HeroSection = ({
               }
             }}
             whileHover={{ 
-              scale: 1.1,
-              borderRadius: "25%",
+              // scale: 1.1,
+              // borderRadius: "25%",
               filter: "blur(2px)",
               transition: {
                 type: "spring",
