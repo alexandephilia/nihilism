@@ -77,7 +77,7 @@ export const HeroSection = ({
             {typeof name === 'string' ? name.split("").map((letter, index) => (
               <span 
                 key={index}
-                className="font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                className="font-bold font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
                 style={{ 
                   animationDelay: `${index * 0.05}s`,
                   animationFillMode: "forwards"
