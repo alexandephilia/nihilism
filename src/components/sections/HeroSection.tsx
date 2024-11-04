@@ -50,6 +50,42 @@ export const HeroSection = ({
 }: HeroSectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
 
+  // Add animation variants
+  const imageVariants = {
+    hidden: { 
+      opacity: 0, 
+      scale: 0.3, // Start smaller for more dramatic effect
+      filter: "blur(16px)",
+      transform: "translateZ(0)" // Ensure GPU acceleration
+    },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      filter: "blur(0px)",
+      transform: "translateZ(0)",
+      transition: {
+        duration: 1.2,
+        ease: [0.6, -0.05, 0.01, 0.99],
+        scale: {
+          type: "spring",
+          stiffness: 100,
+          damping: 15
+        },
+        filter: {
+          duration: 0.8,
+          ease: "easeOut"
+        }
+      }
+    },
+    hover: {
+      filter: "blur(8px)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  };
+
   useEffect(() => {
     const handleClickOutside = () => {
       if (isBlurred) {
@@ -85,28 +121,10 @@ export const HeroSection = ({
           <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
           <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
-            initial={{ 
-              opacity: 0, 
-              scale: 0.5, 
-              filter: "blur(16px)" 
-            }}
-            animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              filter: isBlurred ? "blur(8px)" : "blur(0px)" 
-            }}
-            transition={{ 
-              duration: 1.2,
-              ease: [0.6, -0.05, 0.01, 0.99],
-              type: "spring",
-              stiffness: 200,
-              damping: 20,
-              filter: {
-                duration: 0.3,
-                ease: "easeOut"
-              }
-            }}
-            whileHover={{ filter: "blur(8px)" }}
+            variants={imageVariants}
+            initial="hidden"
+            animate={isBlurred ? "hover" : "visible"}
+            whileHover="hover"
             onClick={(e) => {
               e.stopPropagation();
               setIsBlurred(!isBlurred);
@@ -118,7 +136,19 @@ export const HeroSection = ({
               }
             }}
           >
-            <div className="w-full h-full rounded-full overflow-hidden transform-gpu">
+            <motion.div 
+              className="w-full h-full rounded-full overflow-hidden transform-gpu"
+              variants={{
+                hidden: { scale: 1.2 },
+                visible: { 
+                  scale: 1,
+                  transition: {
+                    duration: 1.2,
+                    ease: [0.6, -0.05, 0.01, 0.99]
+                  }
+                }
+              }}
+            >
               <img 
                 src={profileImage}
                 alt="Profile memoji"
@@ -129,7 +159,7 @@ export const HeroSection = ({
                   WebkitBackfaceVisibility: 'hidden'
                 }}
               />
-            </div>
+            </motion.div>
           </motion.div>
         </div>
         
