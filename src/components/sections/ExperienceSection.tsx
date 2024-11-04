@@ -64,12 +64,12 @@ export const ExperienceSection = () => {
 
   const cardVariants = {
     hidden: (isEven: boolean) => ({ 
-      x: isEven ? 100 : -100,
-      y: 100,
+      x: isEven ? 50 : -50,
+      y: 50,
       opacity: 0,
       filter: "blur(8px)",
       scale: 0.95,
-      rotate: isEven ? 10 : -10
+      rotate: isEven ? 5 : -5
     }),
     visible: { 
       x: 0,
@@ -100,7 +100,7 @@ export const ExperienceSection = () => {
   return (
     <motion.section 
       ref={sectionRef}
-      className="relative py-16"
+      className="relative py-16 overflow-hidden w-full"
       style={{
         opacity,
         filter: blurFilter,
@@ -111,11 +111,11 @@ export const ExperienceSection = () => {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent opacity-90" />
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent opacity-90" />
       <h2 className="text-3xl font-bold text-center mb-12">Experience Timeline</h2>
-      <div className="relative max-w-3xl mx-auto">
+      <div className="relative max-w-3xl mx-auto px-4">
         <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-border hidden md:block" />
         
         <motion.div 
-          className="space-y-8 md:space-y-12"
+          className="space-y-8 md:space-y-12 w-full"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -132,7 +132,7 @@ export const ExperienceSection = () => {
               viewport={{ once: true, margin: "-100px" }}
               className={`flex flex-col md:flex-row ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
-              } items-center`}
+              } items-center w-full`}
             >
               <div className="w-full md:w-1/2 p-4">
                 <Card className="transition-transform duration-300">
