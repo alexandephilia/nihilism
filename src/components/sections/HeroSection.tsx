@@ -79,9 +79,9 @@ export const HeroSection = ({
       }
     },
     hover: {
-      filter: "blur(8px)",
+      filter: "blur(3px)",
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         ease: "easeOut"
       }
     }
@@ -121,7 +121,7 @@ export const HeroSection = ({
         <div className="relative">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
         <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
+            className="relative w-28 h-28 overflow-hidden rounded-full"
             variants={imageVariants}
             initial="initial"
             animate="animate"
@@ -132,15 +132,14 @@ export const HeroSection = ({
             }}
             style={{
               cursor: 'pointer',
-              '@media (hover: none)': {
-                cursor: 'default'
-              }
+              willChange: 'filter',
+              isolation: 'isolate'
             }}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full h-full object-cover"
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
