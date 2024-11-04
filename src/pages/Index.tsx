@@ -84,7 +84,7 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
-const Grain = ({ opacity = 0.6 }) => {
+const Grain = ({ opacity = 0.8 }) => {
   const controls = useAnimationControls();
   const { theme } = useTheme();
   
@@ -109,22 +109,29 @@ const Grain = ({ opacity = 0.6 }) => {
       left: 0,
       pointerEvents: "none",
       zIndex: 9999,
-      overflow: "hidden"
+      overflow: "hidden",
+      willChange: "transform",
+      transform: "translateZ(0)"
     }}>
       <motion.div
         animate={controls}
         style={{
-          backgroundSize: "100px 100px",
+          backgroundSize: "64px 64px",
           backgroundRepeat: "repeat",
           background: theme === 'dark' 
             ? "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')"
             : "url('https://framerusercontent.com/images/rR6HYXBrMmX4cRpXfXUOvpvpB0.png')",
-          opacity: theme === 'dark' ? opacity : opacity * 0.5,
+          opacity: theme === 'dark' ? opacity : opacity * 0.8,
           inset: "-200%",
           width: "400%",
           height: "400%",
           position: "absolute",
-          filter: theme === 'dark' ? 'none' : 'invert(1)'
+          filter: theme === 'dark' 
+            ? 'none' 
+            : 'invert(1) brightness(0.8)',
+          backfaceVisibility: "hidden",
+          perspective: 1000,
+          transformStyle: "preserve-3d"
         }}
       />
     </div>
@@ -132,13 +139,45 @@ const Grain = ({ opacity = 0.6 }) => {
 };
 
 const Index = () => {
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.duration > 16.67) { // Longer than one frame
+            console.warn('Long task detected:', entry);
+          }
+        }
+      });
+      observer.observe({ entryTypes: ['longtask'] });
+      return () => observer.disconnect();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Grain opacity={0.06} />
       {/* Navigation */}
       
-      <nav className="fixed w-full top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+      <nav className="fixed w-full top-0 z-50">
+        <div 
+          className="relative bg-background/95" 
+          style={{
+            transform: "translateZ(0)",
+            willChange: "transform",
+          }}
+        >
+          {/* Add a dedicated blur layer */}
+          <div 
+            className="absolute inset-0" 
+            style={{
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
+              background: "rgba(var(--background), 0.5)",
+            }}
+          />
+          
+          {/* Content container with proper z-index */}
+          <div className="relative z-10 container max-w-5xl flex h-16 items-center justify-between">
           {/* Left side - Logo and Desktop Navigation */}
           <div className="flex items-center gap-6">
             <span className="text-xl font-bold">Portfolio</span>
@@ -149,7 +188,7 @@ const Index = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>About</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr] bg-background/20 backdrop-blur-md">
+                      <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                         <li className="row-span-3">
                           <NavigationMenuLink asChild>
                           <a
@@ -219,7 +258,7 @@ const Index = () => {
                           <span className="font-bold">View my professional journey and achievements</span>
                         </ListItem>
                         <ListItem href="/contact" title="Contact">
-                          <span className="font-bold">Get in touch for opportunities and collaboration</span>
+                          <span className="font-bold">Get in touch for collaboration</span>
                         </ListItem>
                       </ul>
                     </NavigationMenuContent>
@@ -227,7 +266,7 @@ const Index = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Projects</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background/20 backdrop-blur-md">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                         <ListItem href="/projects/web" title="Web Development">
                           Modern web applications built with React and TypeScript
                         </ListItem>
@@ -246,7 +285,7 @@ const Index = () => {
                   <NavigationMenuItem>
                     <NavigationMenuTrigger>Skills</NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-background/20 backdrop-blur-md">
+                      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                         <ListItem href="/skills/frontend" title="Frontend">
                           React, TypeScript, Tailwind CSS, Next.js
                         </ListItem>
@@ -268,38 +307,51 @@ const Index = () => {
               <MobileNav />
             </div>
             <ModeToggle />
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <HeroSection 
-        name="Garry Alexander"
-        title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
-        subtitle="who loves to code and coffee ☕"
-        profileImage="/Untitled.jpeg"
-      />
+      <div className="container max-w-5xl">
+        <HeroSection 
+          name="Garry Alexander"
+          title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
+          subtitle="who loves to code and coffee ☕"
+          profileImage="/Untitled.jpeg"
+        />
+      </div>
 
       {/* Projects Section */}
-      <ProjectsSection />
+      <div className="container max-w-5xl">
+        <ProjectsSection />
+      </div>
 
       {/* Skills Section */}
-      <SkillsSection />
+      <div className="container max-w-5xl">
+        <SkillsSection />
+      </div>
 
       {/* Blog Section */}
-      <BlogSection />
+      <div className="container max-w-5xl">
+        <BlogSection />
+      </div>
 
     
       {/* Experience Section */}
-      <ExperienceSection />
+      <div className="container max-w-5xl">
+        <ExperienceSection />
+      </div>
 
 
       {/* Contact Section */}
-      <ContactSection />
+      <div className="container max-w-5xl">
+        <ContactSection />
+      </div>
 
       {/* Footer Section */}
       <footer className="border-t mt-16">
-      <div className="container py-8">
+      <div className="container max-w-5xl py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <Coffee className="h-4 w-4" />

@@ -2,7 +2,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Book } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
+import { useAnimationOptimizer } from '@/hooks/useAnimationOptimizer';
+import { useOptimizedIntersection } from '@/hooks/useOptimizedIntersection';
 
 const BlogSection = () => {
   // Sample blog posts data
@@ -34,7 +36,24 @@ const BlogSection = () => {
     },
   ];
 
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const optimize = useAnimationOptimizer(sectionRef);
+  
+  // Create a ref callback that handles both refs
+  const handleRef = useCallback((el: HTMLElement | null) => {
+    if (el) {
+      sectionRef.current = el;
+      optimize();
+    }
+  }, [optimize]);
+
+  // Use the intersection observer separately
+  useOptimizedIntersection(() => {
+    if (sectionRef.current) {
+      optimize();
+    }
+  });
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -67,20 +86,23 @@ const BlogSection = () => {
       opacity: 0, 
       y: 20, 
       filter: "blur(10px)",
+      transform: "translateZ(0)"
     },
     visible: { 
       opacity: 1, 
       y: 0, 
       filter: "blur(0px)",
+      transform: "translateZ(0)",
       transition: {
         duration: 0.5,
+        ease: "easeOut"
       },
     },
   };
 
   return (
     <motion.section 
-      ref={sectionRef}
+      ref={handleRef}
       className="container py-16"
       style={{
         filter: blurValue,

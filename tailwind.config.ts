@@ -123,6 +123,14 @@ export default {
         "tooltip-show": "tooltip-show 0.2s ease-out",
         "tooltip-hide": "tooltip-hide 0.15s ease-in forwards",
       },
+      backdropBlur: {
+        xs: '2px',
+      },
+    },
+  },
+  variants: {
+    extend: {
+      backdropBlur: ['hover', 'focus'],
     },
   },
   plugins: [

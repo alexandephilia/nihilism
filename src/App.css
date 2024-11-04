@@ -118,3 +118,80 @@
 .skill-bar {
   animation: skillFill 1.5s ease-out forwards;
 }
+
+/* Add hardware acceleration for animations */
+.animate-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform;
+}
+
+/* Optimize blur transitions */
+.blur-transition {
+  transition: filter 0.2s linear;
+  -webkit-transition: -webkit-filter 0.2s linear;
+}
+
+/* Force GPU rendering for specific elements */
+.force-gpu {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* Add specific styles for navigation blur effects */
+.nav-blur {
+  --nav-bg: rgba(var(--background), 0.8);
+  position: relative;
+  isolation: isolate;
+}
+
+.nav-blur::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background: var(--nav-bg);
+  transform: translateZ(0);
+  z-index: -1;
+}
+
+/* Optimize dropdown animations */
+.dropdown-animation {
+  transform-origin: top center;
+  transition: opacity 150ms ease,
+              transform 150ms ease;
+  will-change: transform, opacity;
+}
+
+/* Force hardware acceleration for navigation elements */
+.nav-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform;
+}
+
+/* Performance optimization classes */
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Composite layer optimization */
+.composite-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  will-change: transform;
+}
+
+/* Reduce paint area */
+.clip-overflow {
+  overflow: hidden;
+  contain: paint;
+}

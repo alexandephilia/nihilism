@@ -56,29 +56,43 @@ export const ExperienceSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.4, // Controls the delay between each child
-        delayChildren: 0.3,   // Initial delay before starting the sequence
+        staggerChildren: 0.4,
+        delayChildren: 0.3,
       }
     }
   };
 
   const cardVariants = {
-    hidden: { 
-      y: 40, 
-      opacity: 0, 
-      filter: "blur(4px)",
-      scale: 0.98
-    },
+    hidden: (isEven: boolean) => ({ 
+      x: isEven ? 50 : -50,
+      y: 50,
+      opacity: 0,
+      filter: "blur(8px)",
+      scale: 0.95,
+      rotate: isEven ? 5 : -5
+    }),
     visible: { 
-      y: 0, 
-      opacity: 1, 
+      x: 0,
+      y: 0,
+      opacity: 1,
       filter: "blur(0px)",
       scale: 1,
+      rotate: 0,
       transition: {
         type: "spring",
-        damping: 25,
-        stiffness: 120,
-        mass: 0.5
+        damping: 20,
+        stiffness: 90,
+        mass: 0.8,
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.02,
+      y: -5,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
       }
     }
   };
@@ -86,7 +100,7 @@ export const ExperienceSection = () => {
   return (
     <motion.section 
       ref={sectionRef}
-      className="relative py-16"
+      className="relative py-16 overflow-hidden w-full"
       style={{
         opacity,
         filter: blurFilter,
@@ -97,26 +111,58 @@ export const ExperienceSection = () => {
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background to-transparent opacity-90" />
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent opacity-90" />
       <h2 className="text-3xl font-bold text-center mb-12">Experience Timeline</h2>
-      <div className="relative max-w-3xl mx-auto">
+      <div className="relative max-w-3xl mx-auto px-4">
         <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-border hidden md:block" />
         
         <motion.div 
-          className="space-y-8 md:space-y-12"
+          className="space-y-8 md:space-y-12 w-full"
           variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           {experienceData.map((item, index) => (
             <motion.div
               key={index}
-              variants={cardVariants}
+              variants={{
+                hidden: {
+                  x: window.innerWidth >= 768 ? (index % 2 === 0 ? 100 : -100) : 0,
+                  y: window.innerWidth < 768 ? 50 : 0,
+                  opacity: 0,
+                  filter: "blur(10px)"
+                },
+                visible: {
+                  x: 0,
+                  y: 0,
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  transition: {
+                    delay: index * 0.2,
+                    duration: 0.8,
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 90
+                  }
+                },
+                hover: {
+                  scale: 1.02,
+                  y: -5,
+                  transition: {
+                    duration: 0.2,
+                    ease: "easeOut"
+                  }
+                }
+              }}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true, margin: "-100px" }}
               className={`flex flex-col md:flex-row ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
-              } items-center`}
+              } items-center w-full overflow-hidden`}
             >
               <div className="w-full md:w-1/2 p-4">
-                <Card className="hover:blur-[1px] transition-all duration-500">
+                <Card className="transition-all duration-300 hover:blur-[2px]">
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>
                     <p className="text-sm text-muted-foreground">{item.company}</p>

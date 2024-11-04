@@ -87,7 +87,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
       <CardHeader className="flex-1 min-h-[100px]">
         <div className="flex items-center gap-3">
           <div className="w-full">
-            <CardTitle className="text-xl">{title}</CardTitle>
+            <CardTitle className="text-xl mb-2">{title}</CardTitle>
             {/* Progress bar showing skill proficiency */}
             <div className="mt-2 flex items-center gap-2">
               <div className="h-2 w-48 bg-muted rounded-full overflow-hidden">
@@ -104,12 +104,12 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
         </div>
       </CardHeader>
       <CardContent className="space-y-4 flex-grow">
-        {/* Skill description with line clamp */}
-        <p className="text-muted-foreground h-[72px] line-clamp-3">{description}</p>
+        {/* Updated description text styling for consistency */}
+        <p className="text-sm text-muted-foreground h-[72px] line-clamp-3">{description}</p>
         
         {/* Tools and technologies section */}
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-muted-foreground">Tools & Technologies</h4>
+          <h4 className="text-sm font-medium">Tools & Technologies</h4>
           <div className="flex flex-wrap gap-2">
             {tools.map((tool, index) => (
               <TooltipProvider key={index}>
@@ -442,20 +442,26 @@ export const SkillsSection: React.FC = () => {
                 }
               }}
             >
-              <Card className="group hover:-translate-y-1 hover:shadow-xl hover:blur-[2px] transition-all duration-300 h-full p-3 sm:p-4 md:p-6">
-                <CardContent className="flex flex-col items-center text-center h-full">
-                  <div className="flex flex-col items-center">
-                    <skill.icon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <p className="text-sm font-medium mb-1 md:mb-2">{skill.name}</p>
+              <Card className="group hover:-translate-y-1 hover:shadow-xl hover:blur-[2px] transition-all duration-300 aspect-square">
+                <CardContent className="flex flex-col items-center justify-between h-full p-3">
+                  <div className="flex-1 flex items-center">
+                    <skill.icon className="h-7 w-7 group-hover:scale-110 transition-transform duration-300" />
+                  </div>
+                  <div className="flex-1 flex flex-col items-center justify-center gap-1.5">
+                    <p className="text-xs font-medium sm:text-sm">{skill.name}</p>
                     <Badge 
                       variant="secondary" 
-                      className="text-xs font-normal bg-muted-foreground/10"
+                      className="text-[10px] font-normal bg-muted-foreground/10 px-2 py-0"
                     >
                       {skill.level}
                     </Badge>
                   </div>
                   {skill.details && (
-                    <p className="text-xs text-muted-foreground mt-2 sm:mt-3">{skill.details}</p>
+                    <div className="flex-1 flex items-center">
+                      <p className="text-[10px] sm:text-xs text-muted-foreground text-center">
+                        {skill.details}
+                      </p>
+                    </div>
                   )}
                 </CardContent>
               </Card>
