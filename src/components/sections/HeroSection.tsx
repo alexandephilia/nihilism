@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // Add this import at the top
 import { Linkedin, Mail, User } from "lucide-react";
 import {
   Tooltip,
@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 interface SocialLink {
   href: string;
@@ -24,20 +24,6 @@ interface HeroSectionProps {
   profileImage: string;
   socialLinks?: SocialLink[];
 }
-
-type MotionStyle = {
-  width?: string;
-  height?: string;
-  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
-  transform?: string;
-  backfaceVisibility?: 'visible' | 'hidden';
-  WebkitBackfaceVisibility?: 'visible' | 'hidden';
-  willChange?: string;
-  pointerEvents?: 'none' | 'auto';
-  cursor?: string;
-  isolation?: 'auto' | 'isolate';
-  perspective?: string;
-};
 
 export const HeroSection = ({
   name,
@@ -94,56 +80,6 @@ export const HeroSection = ({
     };
   }, [isBlurred]);
 
-  // Enhanced image variants with smoother transitions
-  const imageContainerVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0.1,
-      filter: "blur(20px)",
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)",
-      transition: {
-        duration: 1.2,
-        ease: [0.34, 1.56, 0.64, 1],
-        scale: {
-          type: "spring",
-          damping: 15,
-          stiffness: 70,
-          restDelta: 0.001
-        },
-        opacity: {
-          duration: 0.8
-        },
-        filter: {
-          duration: 0.8
-        }
-      }
-    }
-  };
-
-  // Separate transition config for hover effects
-  const hoverTransition = {
-    type: "spring",
-    stiffness: 300,
-    damping: 25,
-    mass: 0.5,
-    restDelta: 0.001
-  };
-
-  const imageStyle: MotionStyle = {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transform: 'translateZ(0)',
-    backfaceVisibility: 'hidden',
-    WebkitBackfaceVisibility: 'hidden',
-    willChange: 'transform, filter',
-    pointerEvents: 'none'
-  };
-
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -163,50 +99,20 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-          <motion.div 
-            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"
-            animate={{
-              scale: isHovered ? 1.1 : 1,
-              opacity: isHovered ? 0.85 : 0.75
-            }}
-            transition={hoverTransition}
-            style={{
-              willChange: 'transform, opacity',
-              backfaceVisibility: 'hidden'
-            }}
-          />
-          <motion.div
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt" />
+          <div
             ref={imageRef}
-            className="relative w-28 h-28 overflow-hidden rounded-full"
-            variants={imageContainerVariants}
-            initial="initial"
-            animate="animate"
+            className="relative w-28 h-28 overflow-hidden rounded-full cursor-pointer"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleImageClick}
-            style={{
-              cursor: 'pointer',
-              willChange: 'transform, filter',
-              isolation: 'isolate',
-              transform: 'translateZ(0)',
-              perspective: '1000px',
-              backfaceVisibility: 'hidden'
-            }}
           >
             <motion.div 
-              style={imageStyle}
+              initial={{ filter: "blur(0px)" }}
               animate={{ 
-                scale: isBlurred ? 1.1 : isHovered ? 1.05 : 1,
                 filter: isBlurred ? "blur(3px)" : isHovered ? "blur(2px)" : "blur(0px)"
               }}
-              transition={{
-                ...hoverTransition,
-                filter: {
-                  type: "tween",
-                  duration: 0.2,
-                  ease: "easeInOut"
-                }
-              }}
+              transition={{ duration: 0.2 }}
             >
               <img 
                 src={profileImage}
@@ -215,7 +121,7 @@ export const HeroSection = ({
                 draggable={false}
               />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
         
         <div className="space-y-4">
