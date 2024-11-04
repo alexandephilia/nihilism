@@ -122,22 +122,19 @@ export const HeroSection = ({
         <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
         <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
-            variants={{
-              ...imageVariants,
-              hover: window.matchMedia('(hover: hover)').matches ? imageVariants.hover : {}
-            }}
+            variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
             onClick={(e) => {
               e.stopPropagation();
-              // Only handle click on mobile
-              if (!window.matchMedia('(hover: hover)').matches) {
-                setIsBlurred(!isBlurred);
-              }
+              setIsBlurred(!isBlurred);
             }}
             style={{
-              cursor: window.matchMedia('(hover: hover)').matches ? 'pointer' : 'default',
+              cursor: 'pointer',
+              '@media (hover: none)': {
+                cursor: 'default'
+              },
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -148,13 +145,24 @@ export const HeroSection = ({
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-all duration-200 ${
+                isBlurred ? 'blur-[2px]' : ''
+              }`}
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 willChange: 'transform',
+                WebkitTouchCallout: 'none', /* iOS Safari */
+                WebkitUserSelect: 'none', /* Safari */
+                userSelect: 'none', /* Standard syntax */
               }}
+              onTouchStart={(e) => {
+                e.preventDefault();
+                setIsBlurred(true);
+              }}
+              onTouchEnd={() => setIsBlurred(false)}
+              onClick={(e) => e.preventDefault()}
             />
           </motion.div>
         </div>
