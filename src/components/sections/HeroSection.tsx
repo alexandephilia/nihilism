@@ -119,57 +119,53 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
-          <motion.div
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
+        <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBlurred(!isBlurred);
+            }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              setIsBlurred(true);
+            }}
+            onTouchEnd={() => setIsBlurred(false)}
             style={{
               cursor: 'pointer',
+              '@media (hover: none)': {
+                cursor: 'default'
+              },
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               willChange: 'transform',
-              contain: 'paint layout',
-              filter: isBlurred ? 'blur(2px)' : 'none',
-              transition: 'filter 0.2s ease-out'
+              contain: 'paint layout'
             }}
           >
-            <div 
-              className="w-full h-full"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsBlurred(!isBlurred);
+            <img 
+              src={profileImage}
+              alt="Profile memoji"
+              className={`w-full h-full object-cover transition-all duration-200 prevent-drag ${
+                isBlurred ? 'blur-[2px]' : ''
+              }`}
+              style={{
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                willChange: 'transform',
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none',
+                pointerEvents: 'none'
               }}
-              onTouchStart={(e) => {
-                e.preventDefault();
-                setIsBlurred(true);
-              }}
-              onTouchEnd={(e) => {
-                e.preventDefault();
-                setIsBlurred(false);
-              }}
-            >
-              <img 
-                src={profileImage}
-                alt="Profile memoji"
-                className="w-full h-full object-cover prevent-drag"
-                style={{
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  willChange: 'transform',
-                  WebkitTouchCallout: 'none',
-                  WebkitUserSelect: 'none',
-                  userSelect: 'none',
-                  pointerEvents: 'none'
-                }}
-                draggable="false"
-                onContextMenu={(e) => e.preventDefault()}
-              />
-            </div>
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
+            />
           </motion.div>
         </div>
         
