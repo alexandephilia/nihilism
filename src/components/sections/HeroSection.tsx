@@ -92,16 +92,16 @@ export const HeroSection = ({
             }}
             whileHover={{ 
               filter: "blur(2px)",
-            }}
-            whileTap={{ 
-              filter: "blur(2px)",
+              transition: {
+                duration: 0.2
+              }
             }}
           >
             <div className="w-full h-full rounded-full overflow-hidden transform-gpu">
               <img 
                 src={profileImage}
                 alt="Profile memoji"
-                className="w-full h-full object-cover pointer-events-none"
+                className="w-full h-full object-cover pointer-events-none select-none"
                 style={{
                   transform: 'translateZ(0)',
                   backfaceVisibility: 'hidden',
