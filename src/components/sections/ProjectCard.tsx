@@ -116,7 +116,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
       <Card 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.1] border-2 border-black/[0.2] dark:border-white/10 hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1"
+        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.1] border border-black/20 ring-1 ring-black/5 dark:border-white/10 hover:border-black/30 hover:ring-black/10 hover:shadow-[0_0_15px_rgb(39,39,42)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1"
         style={{
           minHeight: project.minHeight || '300px',
           display: 'flex',

@@ -30,7 +30,7 @@ const NavSection = ({ title, links, index }: NavSectionProps) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.1 * index, ...springTransition }}
   >
-    <h4 className="text-xl font-bold leading-none text-foreground text-center tracking-tight">
+    <h4 className="text-lg font-bold leading-none text-foreground text-center tracking-tight">
       {title}
     </h4>
     <div className="flex flex-col space-y-4">
@@ -48,7 +48,7 @@ const NavSection = ({ title, links, index }: NavSectionProps) => (
         >
           <Button
             variant="ghost"
-            className="w-full justify-center group relative overflow-hidden rounded-lg h-14 transition-all duration-300 hover:bg-transparent"
+            className="w-full justify-center group relative overflow-hidden rounded-lg h-12 transition-all duration-300 hover:bg-transparent"
             asChild
           >
             <a href={link.href} className="relative">
@@ -75,7 +75,7 @@ const NavSection = ({ title, links, index }: NavSectionProps) => (
 
 const SocialLinks = () => (
   <motion.div 
-    className="mt-auto pt-6 border-t mb-8"
+    className="pt-4 border-t"
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.5, ...springTransition }}
@@ -167,13 +167,13 @@ export const MobileNav = () => {
                   }
                 }}
               >
-                <SheetHeader className="mb-16 mt-12">
-                  <SheetTitle className="text-2xl font-bold tracking-tight text-center">
+                <SheetHeader className="mb-8 mt-8">
+                  <SheetTitle className="text-xl font-bold tracking-tight text-center">
                     Navigation
                   </SheetTitle>
                 </SheetHeader>
               </motion.div>
-              <div className="flex flex-col gap-12 h-[calc(100vh-220px)] overflow-y-auto pb-12 px-4 mt-8">
+              <div className="flex flex-col gap-8 pb-8 px-2">
                 {navSections.map((section, index) => (
                   <NavSection key={section.title} {...section} index={index} />
                 ))}
