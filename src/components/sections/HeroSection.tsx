@@ -119,9 +119,11 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
-        <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
+          <motion.div
+            className={`relative w-28 h-28 overflow-hidden rounded-full composite-layer ${
+              isBlurred ? 'blur-[2px]' : ''
+            }`}
             variants={imageVariants}
             initial="initial"
             animate="animate"
@@ -130,6 +132,11 @@ export const HeroSection = ({
               e.stopPropagation();
               setIsBlurred(!isBlurred);
             }}
+            onTouchStart={(e) => {
+              e.preventDefault();
+              setIsBlurred(true);
+            }}
+            onTouchEnd={() => setIsBlurred(false)}
             style={{
               cursor: 'pointer',
               '@media (hover: none)': {
@@ -145,9 +152,7 @@ export const HeroSection = ({
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className={`w-full h-full object-cover transition-all duration-200 prevent-drag ${
-                isBlurred ? 'blur-[2px]' : ''
-              }`}
+              className="w-full h-full object-cover transition-all duration-200 prevent-drag"
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
@@ -160,12 +165,6 @@ export const HeroSection = ({
               }}
               draggable="false"
               onContextMenu={(e) => e.preventDefault()}
-              onTouchStart={(e) => {
-                e.preventDefault();
-                setIsBlurred(true);
-              }}
-              onTouchEnd={() => setIsBlurred(false)}
-              onClick={(e) => e.preventDefault()}
             />
           </motion.div>
         </div>
