@@ -124,18 +124,45 @@ export const ExperienceSection = () => {
           {experienceData.map((item, index) => (
             <motion.div
               key={index}
-              custom={index % 2 === 0}
-              variants={cardVariants as any}
+              variants={{
+                hidden: {
+                  x: window.innerWidth >= 768 ? (index % 2 === 0 ? 100 : -100) : 0,
+                  y: window.innerWidth < 768 ? 50 : 0,
+                  opacity: 0,
+                  filter: "blur(10px)"
+                },
+                visible: {
+                  x: 0,
+                  y: 0,
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  transition: {
+                    delay: index * 0.2,
+                    duration: 0.8,
+                    type: "spring",
+                    damping: 20,
+                    stiffness: 90
+                  }
+                },
+                hover: {
+                  scale: 1.02,
+                  y: -5,
+                  transition: {
+                    duration: 0.2,
+                    ease: "easeOut"
+                  }
+                }
+              }}
               initial="hidden"
               whileInView="visible"
               whileHover="hover"
               viewport={{ once: true, margin: "-100px" }}
               className={`flex flex-col md:flex-row ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
-              } items-center w-full`}
+              } items-center w-full overflow-hidden`}
             >
               <div className="w-full md:w-1/2 p-4">
-                <Card className="transition-transform duration-300">
+                <Card className="transition-all duration-300 hover:blur-[2px]">
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>
                     <p className="text-sm text-muted-foreground">{item.company}</p>

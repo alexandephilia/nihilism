@@ -73,7 +73,7 @@ export const HeroSection = ({
         </div>
         
         <div className="space-y-4">
-          <h1 className="text-[2rem] md:text-[3.3rem] font-bold text-roc group hover:blur-[2px] transition-all duration-300 -mb-3">
+        <h1 className="text-[2rem] md:text-[3.3rem] font-times group hover:blur-[2px] transition-all duration-300 -mb-3">
             {typeof name === 'string' ? name.split("").map((letter, index) => (
               <span 
                 key={index}  // Fixed typo in 'index'
