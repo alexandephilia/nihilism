@@ -119,8 +119,16 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
-        <motion.div
+          {/* Updated gradient border container */}
+          <div 
+            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur-[1px] opacity-75 transition duration-1000 animate-tilt"
+            style={{
+              transform: 'translate3d(0, 0, 0)',  // Force GPU acceleration
+              willChange: 'transform',            // Optimize animations
+              contain: 'paint'                    // Contain paint operations
+            }}
+          />
+          <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full"
             variants={imageVariants}
             initial="initial"
@@ -133,7 +141,8 @@ export const HeroSection = ({
             style={{
               cursor: 'pointer',
               willChange: 'filter',
-              isolation: 'isolate'
+              contain: 'paint layout',  // Better containment
+              transform: 'translate3d(0, 0, 0)'  // Force GPU acceleration
             }}
           >
             <img 
