@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useState, useEffect } from "react";
 
 interface SocialLink {
   href: string;
@@ -47,6 +48,21 @@ export const HeroSection = ({
     }
   ]
 }: HeroSectionProps) => {
+  const [isBlurred, setIsBlurred] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isBlurred) {
+        setIsBlurred(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isBlurred]);
+
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -68,7 +84,7 @@ export const HeroSection = ({
         <div className="relative">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
           <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer hover:blur-[4px] transition-all duration-300"
+            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             initial={{ 
               opacity: 0, 
               scale: 0.5, 
@@ -77,7 +93,7 @@ export const HeroSection = ({
             animate={{ 
               opacity: 1, 
               scale: 1, 
-              filter: "blur(0px)" 
+              filter: isBlurred ? "blur(8px)" : "blur(0px)" 
             }}
             transition={{ 
               duration: 1.2,
@@ -86,16 +102,27 @@ export const HeroSection = ({
               stiffness: 200,
               damping: 20,
               filter: {
-                duration: 0.8,
+                duration: 0.3,
                 ease: "easeOut"
               }
             }}
+            whileHover={{ filter: "blur(8px)" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsBlurred(!isBlurred);
+            }}
+            style={{
+              cursor: 'pointer',
+              '@media (hover: none)': {
+                cursor: 'default'
+              }
+            }}
           >
-            <div className="w-full h-full rounded-full overflow-hidden transform-gpu transition-all duration-300">
+            <div className="w-full h-full rounded-full overflow-hidden transform-gpu">
               <img 
                 src={profileImage}
                 alt="Profile memoji"
-                className="w-full h-full object-cover pointer-events-none transition-all duration-300"
+                className="w-full h-full object-cover pointer-events-none"
                 style={{
                   transform: 'translateZ(0)',
                   backfaceVisibility: 'hidden',
