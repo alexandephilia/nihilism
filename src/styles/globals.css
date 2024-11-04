@@ -11,28 +11,31 @@
   animation: shine 3s linear infinite;
 }
 
+/* Combined touch prevention classes */
 .prevent-drag {
   -webkit-user-drag: none !important;
-  -khtml-user-drag: none !important;
-  -moz-user-drag: none !important;
-  -o-user-drag: none !important;
-  user-drag: none !important;
+  user-select: none !important;
   -webkit-user-select: none !important;
   -webkit-touch-callout: none !important;
-  -webkit-user-modify: read-only !important;
+  pointer-events: none !important;
 }
 
 .touch-none {
   touch-action: none !important;
   -webkit-touch-callout: none !important;
-  pointer-events: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
+  pointer-events: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
 
-body {
-  -webkit-touch-callout: none !important;
-  -webkit-user-select: none !important;
-  -webkit-tap-highlight-color: transparent !important;
-} 
+/* Global touch prevention */
+:root {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection globally */
+* {
+  -webkit-user-select: none;
+  user-select: none;
+}
