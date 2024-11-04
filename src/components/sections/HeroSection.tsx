@@ -122,19 +122,22 @@ export const HeroSection = ({
         <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
         <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
-            variants={imageVariants}
+            variants={{
+              ...imageVariants,
+              hover: window.matchMedia('(hover: hover)').matches ? imageVariants.hover : {}
+            }}
             initial="initial"
             animate="animate"
             whileHover="hover"
             onClick={(e) => {
               e.stopPropagation();
-              setIsBlurred(!isBlurred);
+              // Only handle click on mobile
+              if (!window.matchMedia('(hover: hover)').matches) {
+                setIsBlurred(!isBlurred);
+              }
             }}
             style={{
-              cursor: 'pointer',
-              '@media (hover: none)': {
-                cursor: 'default'
-              },
+              cursor: window.matchMedia('(hover: hover)').matches ? 'pointer' : 'default',
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
