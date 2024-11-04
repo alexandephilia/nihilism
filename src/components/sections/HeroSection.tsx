@@ -145,7 +145,7 @@ export const HeroSection = ({
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className={`w-full h-full object-cover transition-all duration-200 ${
+              className={`w-full h-full object-cover transition-all duration-200 prevent-drag ${
                 isBlurred ? 'blur-[2px]' : ''
               }`}
               style={{
@@ -153,10 +153,13 @@ export const HeroSection = ({
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
                 willChange: 'transform',
-                WebkitTouchCallout: 'none', /* iOS Safari */
-                WebkitUserSelect: 'none', /* Safari */
-                userSelect: 'none', /* Standard syntax */
+                WebkitTouchCallout: 'none',
+                WebkitUserSelect: 'none',
+                userSelect: 'none',
+                pointerEvents: 'none'
               }}
+              draggable="false"
+              onContextMenu={(e) => e.preventDefault()}
               onTouchStart={(e) => {
                 e.preventDefault();
                 setIsBlurred(true);
