@@ -59,36 +59,36 @@ export const ProjectsSection = () => {
 
   const projects: Project[] = [
     {
-      title: "UI Component Kit",
-      description: "Modern React component collection",
-      content: "A comprehensive library of customizable React components built with TypeScript and styled using Tailwind CSS.",
-      buttonText: "View Library",
-      buttonLink: "https://ui-components.example.com",
-      backgroundImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop"
+      title: "Vercel Deployments",
+      description: "Deployments on Vercel",
+      content: "A collection of projects deployed on Vercel.",
+      buttonText: "View Projects",
+      buttonLink: "https://vercel.com/garryalexander",
+      backgroundImage: "https://vercel.com/_next/image?url=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Fcontentful%2Fimage%2Fe5382hct74si%2F5Q6iTwx2CBd0pFrD9vzZWK%2Fe537e396e236e5daa54a31ff7056a77d%2Fpapercuts-dark.png&w=1920&q=75"
     },
     {
-      title: "Crypto Dashboard",
-      description: "Live cryptocurrency market analysis",
-      content: "A real-time cryptocurrency dashboard offering live price tracking, portfolio management, and detailed charting tools.",
-      buttonText: "View Demo",
-      buttonLink: "https://crypto-dash.example.com",
-      backgroundImage: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?q=80&w=1000&auto=format&fit=crop"
+      title: "Radix UI",
+      description: "Radix UI Components",
+      content: "A collection of components, color schemes and themes built with Radix UI.",
+      buttonText: "View Components",
+      buttonLink: "https://www.radix-ui.com/primitives",
+      backgroundImage: "https://i.ytimg.com/vi/1JnwJBtg4VA/maxresdefault.jpg"
     },
     {
-      title: "Social Recipe App",
-      description: "Community-focused cooking and recipes",
-      content: "A social platform for cooking enthusiasts to share and discover recipes, discuss cooking techniques, and showcase culinary creations.",
-      buttonText: "Start Cooking",
-      buttonLink: "https://recipe-social.example.com",
-      backgroundImage: "https://images.unsplash.com/photo-1605522561233-768ad7a8fabf?q=80&w=1000&auto=format&fit=crop"
+      title: "Open AI Playground",
+      description: "Open AI API",
+      content: "A collection of projects using the Open AI API.",
+      buttonText: "View Projects",
+      buttonLink: "https://github.com/garryalexander/openai-api",
+      backgroundImage: "https://imgsrv2.voi.id/EEVXh73-DLqvWq2Co3ElTqup4eEeZl_YEDKP1ZsMyhI/auto/1280/853/sm/1/bG9jYWw6Ly8vcHVibGlzaGVycy8zODU4MDkvMjAyNDA1MzEwODU3LW1haW4uY3JvcHBlZF8xNzE3MTIwNjc5LmpwZWc.jpg"
     },
     {
-      title: "Virtual Event",
-      description: "Interactive platform for online events",
-      content: "A virtual event platform enabling live streaming, interactive breakout rooms, and networking functionalities.",
-      buttonText: "Join Event",
-      buttonLink: "https://virtual-events.example.com",
-      backgroundImage: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=1000&auto=format&fit=crop"
+      title: "Shadcn UI",
+      description: "Shadcn UI Components",
+      content: "A collection of components built with Shadcn UI.",
+      buttonText: "View Components",
+      buttonLink: "https://ui.shadcn.com/",
+      backgroundImage: "https://mwskwong.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fq95r71b1uue1%2F4GK6beoMEqbAKNCuSn3Ekp%2F9ce62f182cb9502c3ea28b12066c898c%2Fshadcn_ui_OG_Image.png&w=3840&q=75"
     }
   ];
 
