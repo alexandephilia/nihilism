@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
+import { motion } from "framer-motion"; // Add this import at the top
 import { Linkedin, Mail, User } from "lucide-react";
 import {
   Tooltip,
@@ -64,12 +65,50 @@ export const HeroSection = ({
           />
         </div>
         
-        <div className="rounded-full bg-muted/50 p-2.5 hover:blur-sm hover:scale-105 transition-all duration-300 group">
-          <img 
-            src={profileImage}
-            alt="Profile memoji"
-            className="h-28 w-28 rounded-full opacity-0 animate-[fadeInBlur_0.8s_ease_forwards] profile-image"
-          />
+        <div className="relative group">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+          <motion.div
+            className="relative w-28 h-28 overflow-hidden"
+            initial={{ 
+              opacity: 0, 
+              scale: 0.5, 
+              borderRadius: "50%", 
+              filter: "blur(16px)" 
+            }}
+            animate={{ 
+              opacity: 1, 
+              scale: 1, 
+              borderRadius: "50%", 
+              filter: "blur(0px)" 
+            }}
+            transition={{ 
+              duration: 1.2,
+              ease: [0.6, -0.05, 0.01, 0.99],
+              type: "spring",
+              stiffness: 200,
+              damping: 20,
+              filter: {
+                duration: 0.8,
+                ease: "easeOut"
+              }
+            }}
+            whileHover={{ 
+              scale: 1.1,
+              borderRadius: "25%",
+              filter: "blur(2px)",
+              transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 15
+              }
+            }}
+          >
+            <img 
+              src={profileImage}
+              alt="Profile memoji"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
         </div>
         
         <div className="space-y-4">
