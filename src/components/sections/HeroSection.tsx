@@ -9,7 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState, useEffect } from "react";
 
 interface SocialLink {
   href: string;
@@ -48,8 +47,6 @@ export const HeroSection = ({
     }
   ]
 }: HeroSectionProps) => {
-  const [isBlurred, setIsBlurred] = useState(false);
-
   // Enhanced image variants with elastic and blur effects
   const imageVariants = {
     initial: {
@@ -87,19 +84,6 @@ export const HeroSection = ({
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (isBlurred) {
-        setIsBlurred(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isBlurred]);
-
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -126,20 +110,7 @@ export const HeroSection = ({
             initial="initial"
             animate="animate"
             whileHover="hover"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsBlurred(!isBlurred);
-            }}
-            onTouchStart={(e) => {
-              e.preventDefault();
-              setIsBlurred(true);
-            }}
-            onTouchEnd={() => setIsBlurred(false)}
             style={{
-              cursor: 'pointer',
-              '@media (hover: none)': {
-                cursor: 'default'
-              },
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
@@ -150,9 +121,7 @@ export const HeroSection = ({
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className={`w-full h-full object-cover transition-all duration-200 prevent-drag ${
-                isBlurred ? 'blur-[2px]' : ''
-              }`}
+              className="w-full h-full object-cover transition-all duration-200 prevent-drag"
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
