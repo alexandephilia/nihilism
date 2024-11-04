@@ -119,13 +119,15 @@ export const HeroSection = ({
         <div className="relative">
         <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
         <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer touch-none"
+            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer touch-none select-none"
             variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
             whileTap="tap"
             onTouchStart={preventTouchActions}
+            onTouchMove={preventTouchActions}
+            onTouchEnd={preventTouchActions}
             style={{
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
@@ -133,8 +135,11 @@ export const HeroSection = ({
               willChange: 'transform',
               contain: 'paint layout',
               cursor: 'pointer',
-              WebkitTapHighlightColor: 'transparent', // Prevent tap highlight
-              touchAction: 'none' // Disable browser touch actions
+              WebkitTapHighlightColor: 'transparent',
+              touchAction: 'none',
+              userSelect: 'none',
+              WebkitUserSelect: 'none',
+              WebkitTouchCallout: 'none'
             }}
           >
             <img 
@@ -152,10 +157,13 @@ export const HeroSection = ({
                 pointerEvents: 'none',
                 touchAction: 'none'
               }}
-              draggable="false"
+              draggable={false}
               onContextMenu={preventTouchActions}
               onTouchStart={preventTouchActions}
               onTouchMove={preventTouchActions}
+              onTouchEnd={preventTouchActions}
+              onMouseDown={preventTouchActions}
+              role="presentation"
             />
           </motion.div>
         </div>
