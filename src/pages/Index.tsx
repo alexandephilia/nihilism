@@ -138,7 +138,7 @@ const Index = () => {
       {/* Navigation */}
       
       <nav className="fixed w-full top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container max-w-5xl flex h-16 items-center justify-between">
           {/* Left side - Logo and Desktop Navigation */}
           <div className="flex items-center gap-6">
             <span className="text-xl font-bold">Portfolio</span>
@@ -273,33 +273,45 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <HeroSection 
-        name="Garry Alexander"
-        title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
-        subtitle="who loves to code and coffee ☕"
-        profileImage="/Untitled.jpeg"
-      />
+      <div className="container max-w-5xl">
+        <HeroSection 
+          name="Garry Alexander"
+          title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
+          subtitle="who loves to code and coffee ☕"
+          profileImage="/Untitled.jpeg"
+        />
+      </div>
 
       {/* Projects Section */}
-      <ProjectsSection />
+      <div className="container max-w-5xl">
+        <ProjectsSection />
+      </div>
 
       {/* Skills Section */}
-      <SkillsSection />
+      <div className="container max-w-5xl">
+        <SkillsSection />
+      </div>
 
       {/* Blog Section */}
-      <BlogSection />
+      <div className="container max-w-5xl">
+        <BlogSection />
+      </div>
 
     
       {/* Experience Section */}
-      <ExperienceSection />
+      <div className="container max-w-5xl">
+        <ExperienceSection />
+      </div>
 
 
       {/* Contact Section */}
-      <ContactSection />
+      <div className="container max-w-5xl">
+        <ContactSection />
+      </div>
 
       {/* Footer Section */}
       <footer className="border-t mt-16">
-      <div className="container py-8">
+      <div className="container max-w-5xl py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
             <Coffee className="h-4 w-4" />

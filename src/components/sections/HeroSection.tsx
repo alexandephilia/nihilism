@@ -115,13 +115,12 @@ export const HeroSection = ({
           ))}
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-12 left-[49%] -translate-x-1/2 animate-bounce opacity-50 hidden md:block">
-        <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
-          <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
+     {/* Scroll indicator - now positioned below buttons */}
+     <div className="mt-16 animate-bounce opacity-50 pointer-events-none">
+          <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
+            <div className="w-1 h-2 bg-foreground/20 rounded-full mt-2"></div>
+          </div>
         </div>
-      </div>
     </section>
   );
 }; 

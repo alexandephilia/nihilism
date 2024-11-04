@@ -442,11 +442,11 @@ export const SkillsSection: React.FC = () => {
                 }
               }}
             >
-              <Card className="group hover:-translate-y-1 hover:shadow-xl hover:blur-[2px] transition-all duration-300 h-full p-3 sm:p-4 md:p-6">
-                <CardContent className="flex flex-col items-center text-center h-full">
-                  <div className="flex flex-col items-center">
-                    <skill.icon className="h-8 w-8 mb-2 group-hover:scale-110 transition-transform duration-300" />
-                    <p className="text-sm font-medium mb-1 md:mb-2">{skill.name}</p>
+              <Card className="group hover:-translate-y-1 hover:shadow-xl hover:blur-[2px] transition-all duration-300 aspect-square">
+                <CardContent className="flex flex-col items-center justify-center h-full p-4 space-y-3 text-center">
+                  <skill.icon className="h-8 w-8 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="text-center space-y-2">
+                    <p className="text-sm font-medium">{skill.name}</p>
                     <Badge 
                       variant="secondary" 
                       className="text-xs font-normal bg-muted-foreground/10"
@@ -455,7 +455,7 @@ export const SkillsSection: React.FC = () => {
                     </Badge>
                   </div>
                   {skill.details && (
-                    <p className="text-sm text-muted-foreground mt-2 sm:mt-3">{skill.details}</p>
+                    <p className="text-xs text-muted-foreground line-clamp-2 text-center mx-auto max-w-[90%]">{skill.details}</p>
                   )}
                 </CardContent>
               </Card>
