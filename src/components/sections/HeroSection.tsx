@@ -68,7 +68,7 @@ export const HeroSection = ({
         <div className="relative">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
           <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer group"
+            className="relative w-28 h-28 overflow-hidden rounded-full composite-layer hover:blur-[4px] transition-all duration-300"
             initial={{ 
               opacity: 0, 
               scale: 0.5, 
@@ -89,12 +89,6 @@ export const HeroSection = ({
                 duration: 0.8,
                 ease: "easeOut"
               }
-            }}
-            whileHover={{ 
-              filter: "blur(4px)",
-            }}
-            whileTap={{ 
-              filter: "blur(4px)",
             }}
           >
             <div className="w-full h-full rounded-full overflow-hidden transform-gpu transition-all duration-300">
