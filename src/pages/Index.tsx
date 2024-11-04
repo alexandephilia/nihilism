@@ -219,7 +219,7 @@ const Index = () => {
                           <span className="font-bold">View my professional journey and achievements</span>
                         </ListItem>
                         <ListItem href="/contact" title="Contact">
-                          <span className="font-bold">Get in touch for opportunities and collaboration</span>
+                          <span className="font-bold">Get in touch for collaboration</span>
                         </ListItem>
                       </ul>
                     </NavigationMenuContent>

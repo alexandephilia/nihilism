@@ -73,8 +73,8 @@ export const HeroSection = ({
         </div>
         
         <div className="space-y-4">
-          <h1 className="text-[2rem] md:text-[2.8rem] font-bold group hover:blur-[2px] transition-all duration-300">
-            {name.split("").map((letter, index) => (
+          <h1 className="text-[2rem] md:text-[2.8rem] font-bold font-inter group hover:blur-[2px] transition-all duration-300 -mb-3">
+            {typeof name === 'string' ? name.split("").map((letter, index) => (
               <span 
                 key={index}
                 className="inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
@@ -85,7 +85,7 @@ export const HeroSection = ({
               >
                 {letter === " " ? "\u00A0" : letter}
               </span>
-            ))}
+            )) : name}
           </h1>
           <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
             {title}<br />
