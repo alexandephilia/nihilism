@@ -50,30 +50,31 @@ export const HeroSection = ({
 }: HeroSectionProps) => {
   const [isBlurred, setIsBlurred] = useState(false);
 
-  // Add animation variants
+  // Enhanced image variants with elastic and blur effects
   const imageVariants = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.3, // Start smaller for more dramatic effect
-      filter: "blur(16px)",
-      transform: "translateZ(0)" // Ensure GPU acceleration
+    initial: {
+      opacity: 0,
+      scale: 0.3,
+      filter: "blur(20px)",
     },
-    visible: { 
-      opacity: 1, 
+    animate: {
+      opacity: 1,
       scale: 1,
       filter: "blur(0px)",
-      transform: "translateZ(0)",
       transition: {
-        duration: 1.2,
-        ease: [0.6, -0.05, 0.01, 0.99],
+        duration: 1,
         scale: {
           type: "spring",
+          damping: 8,
           stiffness: 100,
-          damping: 15
+          restDelta: 0.001
+        },
+        opacity: {
+          duration: 0.4
         },
         filter: {
           duration: 0.8,
-          ease: "easeOut"
+          ease: [0.4, 0, 0.2, 1]
         }
       }
     },
@@ -122,8 +123,8 @@ export const HeroSection = ({
           <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             variants={imageVariants}
-            initial="hidden"
-            animate={isBlurred ? "hover" : "visible"}
+            initial="initial"
+            animate="animate"
             whileHover="hover"
             onClick={(e) => {
               e.stopPropagation();
@@ -136,30 +137,16 @@ export const HeroSection = ({
               }
             }}
           >
-            <motion.div 
-              className="w-full h-full rounded-full overflow-hidden transform-gpu"
-              variants={{
-                hidden: { scale: 1.2 },
-                visible: { 
-                  scale: 1,
-                  transition: {
-                    duration: 1.2,
-                    ease: [0.6, -0.05, 0.01, 0.99]
-                  }
-                }
+            <img 
+              src={profileImage}
+              alt="Profile memoji"
+              className="w-full h-full object-cover pointer-events-none"
+              style={{
+                transform: 'translateZ(0)',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
               }}
-            >
-              <img 
-                src={profileImage}
-                alt="Profile memoji"
-                className="w-full h-full object-cover pointer-events-none"
-                style={{
-                  transform: 'translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden'
-                }}
-              />
-            </motion.div>
+            />
           </motion.div>
         </div>
         
