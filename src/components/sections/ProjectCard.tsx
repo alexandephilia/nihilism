@@ -95,20 +95,34 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
       ref={cardRef}
       style={{ 
         filter: blurValue,
+        position: 'relative'
       }}
       variants={cardVariants}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
+      <div 
+        className="absolute inset-0 transition-all duration-500 opacity-0 group-hover:opacity-100"
+        style={{
+          boxShadow: '0 0 80px 80px rgba(255, 255, 255, 0.05)',
+          transform: 'translate(-50%, -50%)',
+          left: '50%',
+          top: '50%',
+          pointerEvents: 'none'
+        }}
+      />
+
       <Card 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.02]"
+        className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.1] border-2 border-black/[0.2] dark:border-white/10 hover:shadow-[0_0_15px_rgba(0,0,0,0.2)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1"
         style={{
           minHeight: project.minHeight || '300px',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+          transition: 'transform 0.3s ease-out'
         }}
       >
         {/* Background Image */}
