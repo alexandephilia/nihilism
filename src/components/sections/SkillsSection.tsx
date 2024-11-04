@@ -87,7 +87,7 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
       <CardHeader className="flex-1 min-h-[100px]">
         <div className="flex items-center gap-3">
           <div className="w-full">
-            <CardTitle className="text-xl">{title}</CardTitle>
+            <CardTitle className="text-xl mb-2">{title}</CardTitle>
             {/* Progress bar showing skill proficiency */}
             <div className="mt-2 flex items-center gap-2">
               <div className="h-2 w-48 bg-muted rounded-full overflow-hidden">
@@ -104,12 +104,12 @@ const SkillCard: React.FC<Skill & { isExpanded: boolean; onToggle: () => void }>
         </div>
       </CardHeader>
       <CardContent className="space-y-4 flex-grow">
-        {/* Skill description with line clamp */}
-        <p className="text-muted-foreground h-[72px] line-clamp-3">{description}</p>
+        {/* Updated description text styling for consistency */}
+        <p className="text-sm text-muted-foreground h-[72px] line-clamp-3">{description}</p>
         
         {/* Tools and technologies section */}
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-muted-foreground">Tools & Technologies</h4>
+          <h4 className="text-sm font-medium">Tools & Technologies</h4>
           <div className="flex flex-wrap gap-2">
             {tools.map((tool, index) => (
               <TooltipProvider key={index}>
@@ -455,7 +455,7 @@ export const SkillsSection: React.FC = () => {
                     </Badge>
                   </div>
                   {skill.details && (
-                    <p className="text-xs text-muted-foreground mt-2 sm:mt-3">{skill.details}</p>
+                    <p className="text-sm text-muted-foreground mt-2 sm:mt-3">{skill.details}</p>
                   )}
                 </CardContent>
               </Card>
