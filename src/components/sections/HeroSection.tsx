@@ -75,8 +75,15 @@ export const HeroSection = ({
         }
       }
     },
-    hover: {
+    whileTap: {
       filter: "blur(3px)",
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    whileHover: {
+      filter: "blur(3px)", 
       transition: {
         duration: 0.3,
         ease: "easeOut"
