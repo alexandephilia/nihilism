@@ -9,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useState } from "react"; // Add this import
 
 interface SocialLink {
   href: string;
@@ -47,6 +48,8 @@ export const HeroSection = ({
     }
   ]
 }: HeroSectionProps) => {
+  const [isBlurred, setIsBlurred] = useState(false);
+
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
       {/* Background effects */}
@@ -79,7 +82,7 @@ export const HeroSection = ({
               opacity: 1, 
               scale: 1, 
               borderRadius: "50%", 
-              filter: "blur(0px)" 
+              filter: isBlurred ? "blur(2px)" : "blur(0px)" 
             }}
             transition={{ 
               duration: 1.2,
@@ -93,8 +96,6 @@ export const HeroSection = ({
               }
             }}
             whileHover={{ 
-              // scale: 1.1,
-              // borderRadius: "25%",
               filter: "blur(2px)",
               transition: {
                 type: "spring",
@@ -102,6 +103,9 @@ export const HeroSection = ({
                 damping: 15
               }
             }}
+            onTouchStart={() => setIsBlurred(true)}
+            onTouchEnd={() => setIsBlurred(false)}
+            onClick={() => setIsBlurred(!isBlurred)}
           >
             <img 
               src={profileImage}
@@ -111,23 +115,14 @@ export const HeroSection = ({
           </motion.div>
         </div>
         
-        <div className="space-y-4">
-        <h1 className="text-[2rem] md:text-[3.3rem] font-bold group hover:blur-[2px] transition-all duration-300 -mb-3">
-            {typeof name === 'string' ? name.split("").map((letter, index) => (
-              <span 
-                key={index}
-                className="font-bold font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
-                style={{ 
-                  animationDelay: `${index * 0.05}s`,
-                  animationFillMode: "forwards"
-                }}
-              >
-                {letter === " " ? "\u00A0" : letter}
-              </span>
-            )) : name}
+        <div className="flex flex-col items-center text-center">
+          <h1 className="text-xl sm:text-3xl md:text-4xl font-bold mb-2">
+            {name}
           </h1>
-          <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
-            {title}<br />
+          <p className="text-base sm:text-lg md:text-xl mb-1">
+            {title}
+          </p>
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground">
             {subtitle}
           </p>
         </div>

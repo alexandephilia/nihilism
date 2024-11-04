@@ -7,9 +7,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useTheme } from "@/components/theme-provider";
+import { useEffect, useState } from "react";
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <Button variant="outline" size="icon" className="opacity-0">
+        <span className="sr-only">Loading theme toggle</span>
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>
@@ -17,10 +31,19 @@ export function ModeToggle() {
         <Button 
           variant="outline" 
           size="icon"
-          className="transition-all hover:blur-[2px] focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="transition-all duration-300 hover:blur-[2px] focus:blur-[2px] active:blur-[1px] 
+            select-none outline-none focus:outline-none focus-visible:outline-none 
+            ring-transparent focus:ring-transparent focus-visible:ring-transparent
+            [&>*]:select-none [&_*]:pointer-events-none"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun 
+            className={`h-[1.2rem] w-[1.2rem] transition-all duration-300 
+              ${theme === 'dark' ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`} 
+          />
+          <Moon 
+            className={`absolute h-[1.2rem] w-[1.2rem] transition-all duration-300
+              ${theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'}`}
+          />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

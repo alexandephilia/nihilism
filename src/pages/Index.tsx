@@ -57,6 +57,7 @@ import { useTheme } from "next-themes";
 import FloatingMenu from "@/components/FloatingMenu";
 import { MobileNav } from "@/components/navigation/MobileNav";
 import { HeroSection } from "@/components/sections/HeroSection";
+import { AnimatedGradientText } from "@/components/ui/animated-text";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -180,7 +181,10 @@ const Index = () => {
           <div className="relative z-10 container max-w-5xl flex h-16 items-center justify-between">
           {/* Left side - Logo and Desktop Navigation */}
           <div className="flex items-center gap-6">
-            <span className="text-xl font-bold">Portfolio</span>
+            <AnimatedGradientText 
+              text="Portfolio" 
+              className="text-xl"
+            />
             {/* Desktop Navigation - Moved here */}
             <div className="hidden md:block">
               <NavigationMenu>
@@ -313,7 +317,7 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <HeroSection 
           name="Garry Alexander"
           title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
@@ -323,29 +327,29 @@ const Index = () => {
       </div>
 
       {/* Projects Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <ProjectsSection />
       </div>
 
       {/* Skills Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <SkillsSection />
       </div>
 
       {/* Blog Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <BlogSection />
       </div>
 
     
       {/* Experience Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <ExperienceSection />
       </div>
 
 
       {/* Contact Section */}
-      <div className="container max-w-5xl">
+      <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <ContactSection />
       </div>
 
