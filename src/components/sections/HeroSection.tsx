@@ -73,11 +73,11 @@ export const HeroSection = ({
         </div>
         
         <div className="space-y-4">
-        <h1 className="text-[2rem] md:text-[3.3rem] font-bold font-roc group hover:blur-[2px] transition-all duration-300 -mb-3">
+        <h1 className="text-[2rem] md:text-[3.3rem] font-bold group hover:blur-[2px] transition-all duration-300 -mb-3">
             {typeof name === 'string' ? name.split("").map((letter, index) => (
               <span 
-                key={index}  // Fixed typo in 'index'
-                className="font-roc inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
+                key={index}
+                className="font-mono inline-block hover:animate-wave transition-all duration-300 group-hover:animate-wave touch-none"
                 style={{ 
                   animationDelay: `${index * 0.05}s`,
                   animationFillMode: "forwards"
