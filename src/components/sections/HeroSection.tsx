@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
@@ -105,8 +107,8 @@ export const HeroSection = ({
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle,hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.15] blur-[0.5px]" />
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent opacity-90" />
-      <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-background to-transparent opacity-90" />
-      <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-background to-transparent opacity-90" />
+      <div className="absolute inset-y-0 left-0 w-24 md:w-48 bg-gradient-to-r from-background to-transparent opacity-90" />
+      <div className="absolute inset-y-0 right-0 w-24 md:w-48 bg-gradient-to-l from-background to-transparent opacity-90" />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-3xl mx-auto flex flex-col items-center text-center space-y-8">
@@ -119,22 +121,16 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
-        <motion.div
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
+          <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             variants={imageVariants}
             initial="initial"
             animate="animate"
             whileHover="hover"
             onClick={(e) => {
-              e.stopPropagation();
-              setIsBlurred(!isBlurred);
-            }}
-            style={{
-              cursor: 'pointer',
-              '@media (hover: none)': {
-                cursor: 'default'
-              }
+              e.stopPropagation()
+              setIsBlurred(!isBlurred)
             }}
           >
             <img 
