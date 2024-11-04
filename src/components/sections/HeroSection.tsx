@@ -75,15 +75,16 @@ export const HeroSection = ({
         }
       }
     },
-    whileTap: {
+    hover: {
       filter: "blur(3px)",
       transition: {
         duration: 0.3,
         ease: "easeOut"
       }
     },
-    whileHover: {
-      filter: "blur(3px)", 
+    tap: {
+      filter: "blur(3px)",
+      scale: 0.95,
       transition: {
         duration: 0.3,
         ease: "easeOut"
@@ -117,12 +118,14 @@ export const HeroSection = ({
             initial="initial"
             animate="animate"
             whileHover="hover"
+            whileTap="tap"
             style={{
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
               willChange: 'transform',
-              contain: 'paint layout'
+              contain: 'paint layout',
+              cursor: 'pointer'
             }}
           >
             <img 
