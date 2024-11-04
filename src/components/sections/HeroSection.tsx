@@ -119,7 +119,7 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75"></div>
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 will-change-transform"></div>
         <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             variants={imageVariants}
@@ -134,17 +134,23 @@ export const HeroSection = ({
               cursor: 'pointer',
               '@media (hover: none)': {
                 cursor: 'default'
-              }
+              },
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              willChange: 'transform',
+              contain: 'paint layout'
             }}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full h-full object-cover"
               style={{
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden'
+                WebkitBackfaceVisibility: 'hidden',
+                willChange: 'transform',
               }}
             />
           </motion.div>
