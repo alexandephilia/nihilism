@@ -66,9 +66,9 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt z-[1]"></div>
           <motion.div
-            className="relative w-28 h-28 overflow-hidden"
+            className="relative w-28 h-28 overflow-hidden rounded-full z-[2]"
             initial={{ 
               opacity: 0, 
               scale: 0.5, 
@@ -95,16 +95,15 @@ export const HeroSection = ({
             whileHover={{ 
               filter: "blur(2px)",
               transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 15
+                duration: 0.2,
+                ease: "easeInOut"
               }
             }}
           >
             <img 
               src={profileImage}
               alt="Profile memoji"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover pointer-events-none"
             />
           </motion.div>
         </div>
