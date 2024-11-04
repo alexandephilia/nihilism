@@ -21,6 +21,7 @@ export default {
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],
         inter: ['Inter', 'sans-serif'],
+        roc: ['Roc Grotesk', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
