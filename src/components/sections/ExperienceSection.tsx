@@ -56,29 +56,43 @@ export const ExperienceSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.4, // Controls the delay between each child
-        delayChildren: 0.3,   // Initial delay before starting the sequence
+        staggerChildren: 0.4,
+        delayChildren: 0.3,
       }
     }
   };
 
   const cardVariants = {
-    hidden: { 
-      y: 40, 
-      opacity: 0, 
-      filter: "blur(4px)",
-      scale: 0.98
-    },
+    hidden: (isEven: boolean) => ({ 
+      x: isEven ? 100 : -100,
+      y: 100,
+      opacity: 0,
+      filter: "blur(8px)",
+      scale: 0.95,
+      rotate: isEven ? 10 : -10
+    }),
     visible: { 
-      y: 0, 
-      opacity: 1, 
+      x: 0,
+      y: 0,
+      opacity: 1,
       filter: "blur(0px)",
       scale: 1,
+      rotate: 0,
       transition: {
         type: "spring",
-        damping: 25,
-        stiffness: 120,
-        mass: 0.5
+        damping: 20,
+        stiffness: 90,
+        mass: 0.8,
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.02,
+      y: -5,
+      transition: {
+        duration: 0.2,
+        ease: "easeOut"
       }
     }
   };
@@ -105,18 +119,23 @@ export const ExperienceSection = () => {
           variants={container}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           {experienceData.map((item, index) => (
             <motion.div
               key={index}
-              variants={cardVariants}
+              custom={index % 2 === 0}
+              variants={cardVariants as any}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
+              viewport={{ once: true, margin: "-100px" }}
               className={`flex flex-col md:flex-row ${
                 index % 2 === 0 ? 'md:flex-row-reverse' : ''
               } items-center`}
             >
               <div className="w-full md:w-1/2 p-4">
-                <Card className="hover:blur-[1px] transition-all duration-500">
+                <Card className="transition-transform duration-300">
                   <CardHeader>
                     <CardTitle>{item.title}</CardTitle>
                     <p className="text-sm text-muted-foreground">{item.company}</p>
