@@ -54,7 +54,7 @@ export const HeroSection = ({
   const imageVariants = {
     initial: {
       opacity: 0,
-      scale: 0.3,
+      scale: 0.1,
       filter: "blur(20px)",
     },
     animate: {
@@ -62,19 +62,19 @@ export const HeroSection = ({
       scale: 1,
       filter: "blur(0px)",
       transition: {
-        duration: 1,
+        duration: 1.2,
+        ease: [0.34, 1.56, 0.64, 1],
         scale: {
           type: "spring",
-          damping: 8,
-          stiffness: 100,
+          damping: 15,
+          stiffness: 70,
           restDelta: 0.001
         },
         opacity: {
-          duration: 0.4
+          duration: 0.8
         },
         filter: {
-          duration: 0.8,
-          ease: [0.4, 0, 0.2, 1]
+          duration: 0.8
         }
       }
     },
@@ -119,8 +119,8 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-red-400 dark:to-purple-400 rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
-          <motion.div
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
+        <motion.div
             className="relative w-28 h-28 overflow-hidden rounded-full composite-layer"
             variants={imageVariants}
             initial="initial"

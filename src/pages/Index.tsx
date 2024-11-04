@@ -58,6 +58,7 @@ import FloatingMenu from "@/components/FloatingMenu";
 import { MobileNav } from "@/components/navigation/MobileNav";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { AnimatedGradientText } from "@/components/ui/animated-text";
+import { AnimatedTyping } from "@/components/ui/animated-typing";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -161,19 +162,20 @@ const Index = () => {
       
       <nav className="fixed w-full top-0 z-50">
         <div 
-          className="relative bg-background/95" 
+          className="relative"
           style={{
             transform: "translateZ(0)",
             willChange: "transform",
           }}
         >
-          {/* Add a dedicated blur layer */}
+          {/* Update blur layer with matching styles */}
           <div 
             className="absolute inset-0" 
             style={{
               backdropFilter: "blur(8px)",
               WebkitBackdropFilter: "blur(8px)",
-              background: "rgba(var(--background), 0.5)",
+              background: "rgba(var(--background), 0.3)",
+              borderBottom: "1px solid rgba(var(--border), 0.1)",
             }}
           />
           
@@ -320,8 +322,27 @@ const Index = () => {
       <div className="container max-w-5xl px-4 sm:px-6 md:px-8">
         <HeroSection 
           name="Garry Alexander"
-          title={<>A <strong>front-end developer</strong> & <strong>nihilist</strong></>}
-          subtitle="who loves to code and coffee ☕"
+          title={
+            <>
+              <div className="flex flex-col items-center text-center gap-1">
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <span>A</span>
+                  <strong>front-end developer</strong>
+                  <span>&</span>
+                  <strong>nihilist</strong>
+                </div>
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <span>who likes to contemplate about</span>
+                  <AnimatedTyping 
+                    words={["coffee.", "existence.", "space.", "futurism."]} 
+                    className="font-bold"
+                  />
+                </div>
+              </div>
+            </>
+          }
+          subtitle="and experiment in the cosmic absurdity of life. 
+           Starting from 0 to 1, or probably creating an accidental masterpiece."
           profileImage="/Untitled.jpeg"
         />
       </div>

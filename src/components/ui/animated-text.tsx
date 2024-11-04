@@ -37,7 +37,7 @@ export const AnimatedGradientText = ({ text, className = "" }: AnimatedTextProps
       animate={controls}
       className={`font-bold ${className}`}
       style={{
-        backgroundImage: "linear-gradient(to right, #ef4444, #ffffff, #a855f7, #ffffff, #ef4444)",
+        backgroundImage: "linear-gradient(to right, #f97316, #ffffff, #0ea5e9, #ffffff, #f97316)",
         backgroundSize: "200% 100%",
         WebkitBackgroundClip: "text",
         backgroundClip: "text",
