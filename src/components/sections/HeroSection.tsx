@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/ui/statusbadge";
 import { SiCardano } from "react-icons/si";
-import { motion } from "framer-motion"; // Add this import at the top
+import { motion } from "framer-motion";
 import { Linkedin, Mail, User } from "lucide-react";
 import {
   Tooltip,
@@ -9,7 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 interface SocialLink {
   href: string;
@@ -24,6 +24,20 @@ interface HeroSectionProps {
   profileImage: string;
   socialLinks?: SocialLink[];
 }
+
+type MotionStyle = {
+  width?: string;
+  height?: string;
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  transform?: string;
+  backfaceVisibility?: 'visible' | 'hidden';
+  WebkitBackfaceVisibility?: 'visible' | 'hidden';
+  willChange?: string;
+  pointerEvents?: 'none' | 'auto';
+  cursor?: string;
+  isolation?: 'auto' | 'isolate';
+  perspective?: string;
+};
 
 export const HeroSection = ({
   name,
@@ -48,10 +62,40 @@ export const HeroSection = ({
     }
   ]
 }: HeroSectionProps) => {
+  const [isHovered, setIsHovered] = useState(false);
   const [isBlurred, setIsBlurred] = useState(false);
+  const imageRef = useRef<HTMLDivElement>(null);
 
-  // Enhanced image variants with elastic and blur effects
-  const imageVariants = {
+  const handleMouseEnter = useCallback(() => {
+    setIsHovered(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsHovered(false);
+  }, []);
+
+  const handleImageClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsBlurred(prev => !prev);
+  }, []);
+
+  useEffect(() => {
+    if (!isBlurred) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (imageRef.current && !imageRef.current.contains(e.target as Node)) {
+        setIsBlurred(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [isBlurred]);
+
+  // Enhanced image variants with smoother transitions
+  const imageContainerVariants = {
     initial: {
       opacity: 0,
       scale: 0.1,
@@ -69,23 +113,36 @@ export const HeroSection = ({
           damping: 15,
           stiffness: 70,
           restDelta: 0.001
+        },
+        opacity: {
+          duration: 0.8
+        },
+        filter: {
+          duration: 0.8
         }
       }
-    },
+    }
   };
 
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (isBlurred) {
-        setIsBlurred(false);
-      }
-    };
+  // Separate transition config for hover effects
+  const hoverTransition = {
+    type: "spring",
+    stiffness: 300,
+    damping: 25,
+    mass: 0.5,
+    restDelta: 0.001
+  };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isBlurred]);
+  const imageStyle: MotionStyle = {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    transform: 'translateZ(0)',
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+    willChange: 'transform, filter',
+    pointerEvents: 'none'
+  };
 
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
@@ -106,32 +163,58 @@ export const HeroSection = ({
         </div>
         
         <div className="relative">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"></div>
-        <motion.div
-            className="relative w-28 h-28 overflow-hidden rounded-full group transition-all duration-300"
-            variants={imageVariants}
+          <motion.div 
+            className="absolute -inset-0.5 bg-gradient-to-r from-zinc-800 to-zinc-800 dark:from-[#f97316] dark:via-[#654127] dark:to-[#0ea5e9] rounded-full blur opacity-75 transition duration-1000 animate-tilt"
+            animate={{
+              scale: isHovered ? 1.1 : 1,
+              opacity: isHovered ? 0.85 : 0.75
+            }}
+            transition={hoverTransition}
+            style={{
+              willChange: 'transform, opacity',
+              backfaceVisibility: 'hidden'
+            }}
+          />
+          <motion.div
+            ref={imageRef}
+            className="relative w-28 h-28 overflow-hidden rounded-full"
+            variants={imageContainerVariants}
             initial="initial"
             animate="animate"
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsBlurred(!isBlurred);
-            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleImageClick}
             style={{
               cursor: 'pointer',
-              willChange: 'transform',
-              isolation: 'isolate'
+              willChange: 'transform, filter',
+              isolation: 'isolate',
+              transform: 'translateZ(0)',
+              perspective: '1000px',
+              backfaceVisibility: 'hidden'
             }}
           >
-            <img 
-              src={profileImage}
-              alt="Profile memoji"
-              className="w-full h-full object-cover transition-all duration-300 group-hover:blur-[2px]"
-              style={{
-                transform: 'translateZ(0)',
-                backfaceVisibility: 'hidden',
-                WebkitBackfaceVisibility: 'hidden'
+            <motion.div 
+              style={imageStyle}
+              animate={{ 
+                scale: isBlurred ? 1.1 : isHovered ? 1.05 : 1,
+                filter: isBlurred ? "blur(3px)" : isHovered ? "blur(2px)" : "blur(0px)"
               }}
-            />
+              transition={{
+                ...hoverTransition,
+                filter: {
+                  type: "tween",
+                  duration: 0.2,
+                  ease: "easeInOut"
+                }
+              }}
+            >
+              <img 
+                src={profileImage}
+                alt="Profile memoji"
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+            </motion.div>
           </motion.div>
         </div>
         
