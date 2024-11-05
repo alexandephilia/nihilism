@@ -327,15 +327,15 @@ const Index = () => {
               <div className="flex flex-col items-center text-center gap-1">
                 <div className="flex flex-wrap items-center justify-center gap-2">
                   <span>A</span>
-                  <strong>front-end developer</strong>
+                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">front-end developer</strong>
                   <span>&</span>
-                  <strong>nihilist</strong>
+                  <strong className="dark:text-white dark:drop-shadow-[0_0_0.3rem_#ffffff70]">nihilist</strong>
                 </div>
                 <div className="flex flex-wrap items-center justify-center gap-2">
                   <span>who contemplate about</span>
                   <AnimatedTyping 
                     words={["coffee.", "existence.", "space.", "futurism."]} 
-                    className="font-bold"
+                    className="font-bold text-[#2a2a29] drop-shadow-[0_0_0.0rem_#656564] animate-pulse mix-blend-screen filter brightness-150 dark:text-[#EEEEEE] dark:drop-shadow-[0_0_0.3rem_#00ff9570] dark:animate-pulse dark:mix-blend-screen dark:filter dark:brightness-100"
                   />
                 </div>
               </div>

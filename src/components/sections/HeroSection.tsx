@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useCallback } from 'react'; // Add this import
+import { Separator } from "@/components/ui/separator";
 
 interface SocialLink {
   href: string;
@@ -183,7 +184,12 @@ export const HeroSection = ({
               </span>
             )) : name}
           </h1>
-          <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[650px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
+          
+          <Separator 
+            className="w-96 mx-auto rounded-full" 
+          />
+          
+          <p className="text-base md:text-lg leading-relaxed text-muted-foreground max-w-[500px] animate-fade-in-up opacity-0 [animation-delay:400ms] [animation-fill-mode:forwards]">
             {title}<br />
             {subtitle}
           </p>

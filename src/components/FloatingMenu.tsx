@@ -105,7 +105,6 @@ const FloatingMenu = () => {
                       // Individual menu item animations
                       <motion.div
                         key={index}
-                        custom={index}
                         initial={{
                           scale: 0.5,
                           opacity: 0,
