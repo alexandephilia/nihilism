@@ -170,13 +170,7 @@ const Index = () => {
         >
           {/* Update blur layer with matching styles */}
           <div 
-            className="absolute inset-0" 
-            style={{
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
-              background: "rgba(var(--background), 0.3)",
-              borderBottom: "1px solid rgba(var(--border), 0.1)",
-            }}
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm" 
           />
           
           {/* Content container with proper z-index */}
