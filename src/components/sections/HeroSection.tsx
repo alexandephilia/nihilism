@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useCallback } from 'react'; // Add this import
 import { Separator } from "@/components/ui/separator";
+import { ShimmerDot } from "@/components/ui/shimmer-dot";
 
 interface SocialLink {
   href: string;
@@ -101,8 +102,15 @@ export const HeroSection = ({
 
   return (
     <section className="container min-h-[70vh] pt-24 md:pt-32 pb-12 relative flex flex-col items-center justify-between">
-      {/* Background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle,hsl(var(--foreground))_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.15] blur-[0.5px]" />
+      {/* Background effect */}
+      <ShimmerDot 
+        shapeType="Square"
+        size={2.5}
+        gap={8}
+        speed={0.7}
+      />
+      
+      {/* Keep the gradient overlays */}
       <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent opacity-90" />
       <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-background to-transparent opacity-90" />
       <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-background to-transparent opacity-90" />
