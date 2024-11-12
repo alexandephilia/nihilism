@@ -45,7 +45,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
       const rect = cardRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
+
       requestAnimationFrame(() => {
         setPosition({ x, y });
       });
@@ -93,7 +93,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
   return (
     <motion.div
       ref={cardRef}
-      style={{ 
+      style={{
         filter: blurValue,
         position: 'relative'
       }}
@@ -102,7 +102,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
     >
-      <div 
+      <div
         className="absolute inset-0 transition-all duration-500 opacity-0 group-hover:opacity-100"
         style={{
           boxShadow: '0 0 80px 80px rgba(255, 255, 255, 0.05)',
@@ -113,7 +113,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
         }}
       />
 
-      <Card 
+      <Card
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className="relative overflow-hidden group transition-all duration-500 ease-out dark:bg-transparent bg-black/[0.1] border border-black/20 ring-1 ring-black/5 dark:border-white/10 hover:border-black/30 hover:ring-black/10 hover:shadow-[0_0_15px_rgb(39,39,42)] dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:-translate-y-1"
@@ -126,9 +126,9 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
         }}
       >
         {/* Background Image */}
-        <div 
+        <div
           className="absolute inset-0 w-full h-full transition-all duration-500"
-          style={{ 
+          style={{
             backgroundImage: `url(${project.backgroundImage})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -145,7 +145,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
 
         {/* Updated Content section with blur effects */}
         <div className="relative z-20 h-full flex flex-col flex-1 p-5">
-          <div 
+          <div
             className={`space-y-1 transition-all duration-700`}
             style={{
               opacity: contentVisible ? 1 : 0,
@@ -156,8 +156,8 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
             <h3 className="text-white dark:text-foreground font-semibold text-lg">{project.title}</h3>
             <p className="text-white/90 dark:text-foreground/90 text-sm">{project.description}</p>
           </div>
-          
-          <div 
+
+          <div
             className={`mt-3 flex-1 flex flex-col justify-between transition-all duration-700`}
             style={{
               opacity: contentVisible ? 1 : 0,
@@ -168,7 +168,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
             <p className="text-white/80 dark:text-foreground/80 text-sm line-clamp-3">
               {project.content}
             </p>
-            <Button 
+            <Button
               data-magnetic="true"
               className="mt-4 w-fit text-sm py-1 h-8 transition-all duration-300 hover:blur-[2px]"
               variant="secondary"
@@ -181,7 +181,7 @@ export const ProjectCard = ({ index, project }: ProjectCardProps) => {
 
         {/* Hover effect */}
         {isHovered && (
-          <div 
+          <div
             className="absolute inset-0 z-10 transition-opacity duration-300"
             style={{
               background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(255,255,255,0.1), transparent 40%)`

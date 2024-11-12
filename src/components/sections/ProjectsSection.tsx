@@ -1,4 +1,5 @@
 import { ProjectCard } from "./ProjectCard";
+import { TimerCard } from "./TimerCard";
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
@@ -13,7 +14,7 @@ interface Project {
 
 export const ProjectsSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
@@ -42,14 +43,14 @@ export const ProjectsSection = () => {
   };
 
   const cardVariants = {
-    hidden: { 
-      opacity: 0, 
-      y: 20, 
+    hidden: {
+      opacity: 0,
+      y: 20,
       filter: "blur(10px)",
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       filter: "blur(0px)",
       transition: {
         duration: 0.5,
@@ -93,27 +94,23 @@ export const ProjectsSection = () => {
   ];
 
   return (
-    <motion.section 
+    <motion.section
       ref={sectionRef}
       className="container py-16"
       style={{
         filter: blurFilter
       }}
     >
-      {/* Section header */}
-      <div className="space-y-2 mb-8">
-        <h2 className="text-3xl font-bold tracking-tight">Projects</h2>
-        <p className="text-muted-foreground">Some of my recent work</p>
-      </div>
-
-      {/* Projects grid */}
-      <motion.div 
-        className="grid md:grid-cols-2 gap-6"
+      <h2 className="text-3xl font-bold mb-12">Projects</h2>
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
       >
+
+        <TimerCard />
         {projects.map((project, index) => (
           <ProjectCard key={index} index={index} project={project} />
         ))}
